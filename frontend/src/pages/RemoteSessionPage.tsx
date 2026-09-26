@@ -32,6 +32,8 @@ import { webrtcService } from '../services/webrtc.service.js';
 import { mobileOS } from '../services/mobileOS.service.js';
 import { ChatDrawer } from '../components/ChatDrawer.js';
 import { detectDeviceType } from '../utils/format';
+import { apiClient } from '../api/client.js';
+import { API_BASE_URL } from '../constants/index.js';
 
 export const RemoteSessionPage: React.FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
@@ -59,6 +61,35 @@ export const RemoteSessionPage: React.FC = () => {
   const [isPortrait, setIsPortrait] = useState(false);
   const [showHostPreview, setShowHostPreview] = useState(false);
   const [sessionSeconds, setSessionSeconds] = useState(0);
+  const [adbConnected, setAdbConnected] = useState(false);
+  const [useAdbMirror, setUseAdbMirror] = useState(false);
+
+  // Poll for connected physical Android device via ADB
+  useEffect(() => {
+    let isMounted = true;
+    const checkAdb = async () => {
+      try {
+        const res = await apiClient<{ isConnected: boolean }>('/adb/status');
+        if (isMounted) {
+          if (res?.isConnected) {
+            setAdbConnected(true);
+            setUseAdbMirror(true);
+            setIsPortrait(true);
+          } else {
+            setAdbConnected(false);
+          }
+        }
+      } catch {
+        if (isMounted) setAdbConnected(false);
+      }
+    };
+    checkAdb();
+    const interval = setInterval(checkAdb, 4000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   // Session duration timer
   useEffect(() => {
@@ -155,7 +186,7 @@ export const RemoteSessionPage: React.FC = () => {
   };
 
   // --- Mouse & Keyboard Input Transmission (Viewer -> Host) ---
-  const handleMouseMove = (e: React.MouseEvent<HTMLVideoElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (role !== 'CLIENT' || !permissions.allowMouse) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -168,7 +199,7 @@ export const RemoteSessionPage: React.FC = () => {
     });
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLVideoElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (role !== 'CLIENT' || !permissions.allowMouse) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -182,7 +213,7 @@ export const RemoteSessionPage: React.FC = () => {
     });
   };
 
-  const handleDoubleClick = (e: React.MouseEvent<HTMLVideoElement>) => {
+  const handleDoubleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (role !== 'CLIENT' || !permissions.allowMouse) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -196,7 +227,7 @@ export const RemoteSessionPage: React.FC = () => {
     });
   };
 
-  const handleContextMenu = (e: React.MouseEvent<HTMLVideoElement>) => {
+  const handleContextMenu = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     if (role !== 'CLIENT' || !permissions.allowMouse) return;
     const rect = e.currentTarget.getBoundingClientRect();
@@ -211,7 +242,7 @@ export const RemoteSessionPage: React.FC = () => {
     });
   };
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLVideoElement>) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLElement>) => {
     if (role !== 'CLIENT' || !permissions.allowMouse) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -491,6 +522,31 @@ export const RemoteSessionPage: React.FC = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-1.5 shrink-0">
+            {/* Physical Android Phone Mirror Button (ADB) */}
+            <button
+              onClick={() => {
+                setUseAdbMirror(!useAdbMirror);
+                setIsPortrait(true);
+              }}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center space-x-1.5 transition-all shadow-sm ${
+                useAdbMirror
+                  ? 'bg-emerald-600 text-white shadow-emerald-600/30'
+                  : adbConnected
+                  ? 'bg-slate-800 text-emerald-400 hover:bg-slate-700'
+                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+              }`}
+              title={
+                adbConnected
+                  ? 'Mirroring Real Android Screen via ADB'
+                  : 'Connect your phone to laptop with USB Debugging enabled'
+              }
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">
+                {useAdbMirror ? 'ADB Mirror (Active)' : adbConnected ? 'Switch to ADB Phone' : 'ADB Phone'}
+              </span>
+            </button>
+
             {/* Chat Toggle */}
             <button
               onClick={() => setIsChatOpen(!isChatOpen)}
@@ -615,8 +671,68 @@ export const RemoteSessionPage: React.FC = () => {
               </div>
             )}
           </div>
+        ) : useAdbMirror ? (
+          /* Role is CLIENT with ADB Physical Android Mirror */
+          adbConnected ? (
+            <div className="relative flex items-center justify-center">
+              <img
+                src={`${API_BASE_URL}/adb/stream.mjpg`}
+                alt="Live Physical Android Screen"
+                onClick={handleClick}
+                onMouseDown={handleMouseDown}
+                onDoubleClick={handleDoubleClick}
+                onMouseMove={handleMouseMove}
+                className={`transition-all select-none ${
+                  isZoomed
+                    ? 'min-w-[1920px] min-h-[1080px] object-none'
+                    : 'max-h-[82vh] aspect-[9/16] object-contain cursor-crosshair rounded-3xl shadow-2xl border-4 border-slate-800 bg-black'
+                }`}
+              />
+            </div>
+          ) : (
+            <div className="max-w-md p-8 bg-slate-900/95 border border-slate-700/80 rounded-3xl text-center space-y-4 shadow-2xl backdrop-blur-sm animate-in fade-in zoom-in-95 duration-200">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                <Smartphone className="w-8 h-8" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white">Physical Android Mirror (ADB)</h3>
+                <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                  Connect your Android phone or tablet to this laptop with a USB cable or via Wi-Fi with <strong>USB Debugging</strong> enabled.
+                </p>
+              </div>
+
+              <div className="text-left bg-slate-950/80 p-4 rounded-xl border border-slate-800 text-[11px] text-slate-300 space-y-2 font-mono">
+                <div className="flex items-center space-x-2">
+                  <span className="w-5 h-5 rounded-full bg-slate-800 text-cyan-400 flex items-center justify-center font-bold text-[10px]">1</span>
+                  <span>Settings &gt; Developer Options</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-5 h-5 rounded-full bg-slate-800 text-cyan-400 flex items-center justify-center font-bold text-[10px]">2</span>
+                  <span>Turn ON <strong>USB Debugging</strong></span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-5 h-5 rounded-full bg-slate-800 text-cyan-400 flex items-center justify-center font-bold text-[10px]">3</span>
+                  <span>Tap <strong>"Always Allow"</strong> on phone prompt</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-center space-x-2.5 pt-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+                <span className="text-xs text-amber-300 font-medium">Detecting device... plug in anytime!</span>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  onClick={() => setUseAdbMirror(false)}
+                  className="text-xs text-slate-400 hover:text-white underline transition-colors"
+                >
+                  Switch back to standard WebRTC mode
+                </button>
+              </div>
+            </div>
+          )
         ) : (
-          /* Role is CLIENT: Render the SINGLE Remote Screen (NO recursion!) */
+          /* Role is CLIENT: Render standard WebRTC Remote Screen */
           <video
             ref={videoRef}
             onMouseMove={handleMouseMove}
