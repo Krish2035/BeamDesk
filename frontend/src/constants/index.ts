@@ -1,8 +1,18 @@
 export const APP_NAME = 'BeamDesk';
 export const APP_TAGLINE = 'Ultra-fast, secure remote desktop and collaborative support';
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
-export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || (typeof window !== 'undefined' ? window.location.origin : '');
+const isProductionHost =
+  typeof window !== 'undefined' &&
+  (window.location.hostname.includes('vercel.app') ||
+   (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1'));
+
+export const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  (isProductionHost ? 'https://beamdesk-backend.onrender.com/api' : '/api');
+
+export const SOCKET_URL =
+  import.meta.env.VITE_SOCKET_URL ||
+  (isProductionHost ? 'https://beamdesk-backend.onrender.com' : (typeof window !== 'undefined' ? window.location.origin : ''));
 
 export const STORAGE_KEYS = {
   ACCESS_TOKEN: 'beamdesk_access_token',

@@ -38,6 +38,7 @@ export const ConnectionPage: React.FC = () => {
 
   // Listen to socket session events
   useEffect(() => {
+    socketService.connect();
     const socket = socketService.getSocket();
     if (!socket) return;
 

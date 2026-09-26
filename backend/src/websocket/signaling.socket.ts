@@ -188,9 +188,15 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
           .to(`device:${spaceId}`)
           .emit(SOCKET_EVENTS.SESSION_REQUEST_INCOMING, incomingPayload);
 
+        io.to(`device:${targetNormalized}`)
+          .to(`device:${digits}`)
+          .to(`device:${spaceId}`)
+          .emit('session:request:incoming', incomingPayload);
+
         // Also emit directly to target socket if found
         if (targetSocketId) {
           io.to(targetSocketId).emit(SOCKET_EVENTS.SESSION_REQUEST_INCOMING, incomingPayload);
+          io.to(targetSocketId).emit('session:request:incoming', incomingPayload);
         }
       } catch (err: any) {
         logger.error('Error initiating session request:', err);

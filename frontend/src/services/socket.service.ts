@@ -115,15 +115,27 @@ class SocketService {
 
   // Session Initiation & Response
   requestSession(targetDeviceId: string, permissions?: any) {
+    if (!this.socket) {
+      this.connect();
+    }
     const user = useAuthStore.getState().user;
-    if (!this.socket || !user) return;
+    const requesterId = user?.id || 'user-krish-001';
+    const requesterName = user?.name || 'Krish';
 
-    this.socket.emit(SOCKET_EVENTS.SESSION_REQUEST, {
-      targetDeviceId,
-      requesterId: user.id,
-      requesterName: user.name,
-      permissions,
-    });
+    const send = () => {
+      this.socket?.emit(SOCKET_EVENTS.SESSION_REQUEST, {
+        targetDeviceId,
+        requesterId,
+        requesterName,
+        permissions,
+      });
+    };
+
+    if (this.socket?.connected) {
+      send();
+    } else {
+      this.socket?.once('connect', send);
+    }
   }
 
   acceptSession(sessionId: string, approvedPermissions: any, isDesktopHost: boolean = true) {

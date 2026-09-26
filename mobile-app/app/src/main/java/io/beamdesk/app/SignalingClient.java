@@ -64,8 +64,8 @@ public class SignalingClient {
                 }
             });
 
-            // Incoming session request from remote laptop
-            socket.on("session:request:incoming", args -> {
+            // Incoming session request from remote laptop (support both colon and underscore formats)
+            io.socket.emitter.Emitter.Listener requestListener = args -> {
                 try {
                     JSONObject data = (JSONObject) args[0];
                     String sessionId = data.getString("sessionId");
@@ -77,7 +77,9 @@ public class SignalingClient {
                 } catch (Exception e) {
                     Log.e(TAG, "Error parsing incoming session request", e);
                 }
-            });
+            };
+            socket.on("session:request:incoming", requestListener);
+            socket.on("session:request_incoming", requestListener);
 
             // Remote Mouse Click & Touch Injection
             socket.on("control:mouse", args -> {
