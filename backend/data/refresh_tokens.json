@@ -387,8 +387,16 @@
     "id": "37f84e11-e468-45df-9143-3432fbacffce",
     "userId": "user-demo-002",
     "token": "d86e70ad-1e08-4144-adbe-685e767e657e",
-    "revoked": false,
+    "revoked": true,
     "expiresAt": "2026-10-03T15:57:46.766Z",
     "createdAt": "2026-09-26T15:57:46.766Z"
+  },
+  {
+    "id": "eaf39b6d-d65a-4ec3-9627-3467ab1a32bc",
+    "userId": "user-demo-002",
+    "token": "d868beb0-b75f-4531-839f-38e81908a1e8",
+    "revoked": false,
+    "expiresAt": "2026-10-03T18:45:02.542Z",
+    "createdAt": "2026-09-26T18:45:02.543Z"
   }
 ]

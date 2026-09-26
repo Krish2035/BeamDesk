@@ -254,6 +254,21 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
       }
     });
 
+    // Explicit session room join (used by client, host, and companion mobile app)
+    socket.on('session:join', (data: { sessionId: string }) => {
+      if (data?.sessionId) {
+        socket.join(`session:${data.sessionId}`);
+        logger.info(`Socket ${socket.id} joined session room: session:${data.sessionId}`);
+      }
+    });
+
+    // Live mobile screen frame streaming (from companion Android app)
+    socket.on('stream:frame', (data: { sessionId: string; frame: string }) => {
+      if (data?.sessionId && data?.frame) {
+        socket.to(`session:${data.sessionId}`).emit('stream:frame', data);
+      }
+    });
+
     // 6. WebRTC SDP Offer Relay
     socket.on(SOCKET_EVENTS.SIGNALING_OFFER, (payload: SdpSignalPayload) => {
       socket.to(`session:${payload.sessionId}`).emit(SOCKET_EVENTS.SIGNALING_OFFER, {

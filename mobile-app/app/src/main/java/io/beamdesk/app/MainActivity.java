@@ -90,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
             Intent serviceIntent = new Intent(this, ScreenCaptureService.class);
             serviceIntent.putExtra("resultCode", resultCode);
             serviceIntent.putExtra("data", data);
+            if (pendingSessionId != null) {
+                serviceIntent.putExtra("sessionId", pendingSessionId);
+                SignalingClient.getInstance().setCurrentSessionId(pendingSessionId);
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(serviceIntent);

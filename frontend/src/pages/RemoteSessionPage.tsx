@@ -63,6 +63,7 @@ export const RemoteSessionPage: React.FC = () => {
   const [sessionSeconds, setSessionSeconds] = useState(0);
   const [adbConnected, setAdbConnected] = useState(false);
   const [useAdbMirror, setUseAdbMirror] = useState(false);
+  const [mobileFrame, setMobileFrame] = useState<string | null>(null);
 
   // Poll for connected physical Android device via ADB
   useEffect(() => {
@@ -98,6 +99,35 @@ export const RemoteSessionPage: React.FC = () => {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  // Socket room join & live mobile screen frame listener
+  useEffect(() => {
+    if (!sessionId) return;
+
+    if (!role) {
+      useSessionStore.getState().setSession(sessionId, 'CLIENT', '');
+    }
+
+    socketService.connect();
+    const socket = socketService.getSocket();
+    if (!socket) return;
+
+    // Explicitly join session room to receive live stream frames
+    socket.emit('session:join', { sessionId });
+
+    const handleFrame = (data: { sessionId: string; frame: string }) => {
+      if (data && data.sessionId === sessionId && data.frame) {
+        setMobileFrame(data.frame);
+        setIsPortrait(true);
+      }
+    };
+
+    socket.on('stream:frame', handleFrame);
+
+    return () => {
+      socket.off('stream:frame', handleFrame);
+    };
+  }, [sessionId, role]);
 
   const formatTimer = (totalSec: number) => {
     const mins = Math.floor(totalSec / 60);
@@ -731,6 +761,25 @@ export const RemoteSessionPage: React.FC = () => {
               </div>
             </div>
           )
+        ) : mobileFrame ? (
+          /* Role is CLIENT with live mobile companion screen */
+          <div className="relative flex items-center justify-center w-full h-full p-2">
+            <img
+              src={mobileFrame}
+              alt="Live Android Companion Screen"
+              onClick={handleClick}
+              onMouseDown={handleMouseDown}
+              onDoubleClick={handleDoubleClick}
+              onContextMenu={handleContextMenu}
+              onMouseMove={handleMouseMove}
+              onTouchStart={handleTouchStart as any}
+              onTouchMove={handleTouchMove as any}
+              onTouchEnd={handleTouchEnd as any}
+              className={`transition-all select-none max-h-[85vh] aspect-[9/16] object-contain cursor-crosshair rounded-3xl shadow-2xl border-4 border-slate-800 bg-black ${
+                isZoomed ? 'min-w-[1920px] min-h-[1080px] object-none' : ''
+              }`}
+            />
+          </div>
         ) : (
           /* Role is CLIENT: Render standard WebRTC Remote Screen */
           <video
@@ -802,8 +851,8 @@ export const RemoteSessionPage: React.FC = () => {
           </div>
         )}
 
-        {/* Connecting Stream Waiting Overlay (only shown for CLIENT waiting for remote stream) */}
-        {role === 'CLIENT' && !remoteStream && (
+        {/* Connecting Stream Waiting Overlay (only shown for CLIENT waiting for remote stream or frames) */}
+        {role === 'CLIENT' && !remoteStream && !mobileFrame && (
           <div className="absolute inset-0 bg-slate-950/90 flex flex-col items-center justify-center space-y-3 p-6 text-center z-10 animate-in fade-in duration-300">
             <div className="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center">
               <RefreshCw className="w-7 h-7 text-brand-400 animate-spin" />
@@ -811,7 +860,7 @@ export const RemoteSessionPage: React.FC = () => {
             <div className="space-y-1">
               <h3 className="text-base font-semibold text-slate-100">Connecting to Remote Screen...</h3>
               <p className="text-xs text-slate-400 max-w-sm">
-                Negotiating low-latency WebRTC display stream. Ensure target device accepts connection.
+                Negotiating low-latency display stream. Ensure target device accepts connection.
               </p>
             </div>
           </div>

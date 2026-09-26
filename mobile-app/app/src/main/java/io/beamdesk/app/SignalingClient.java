@@ -18,7 +18,16 @@ public class SignalingClient {
     private String serverUrl = "https://beamdesk-backend.onrender.com"; // Render backend
     private String deviceCode = "";
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private String currentSessionId;
     private SignalingCallback callback;
+
+    public String getCurrentSessionId() {
+        return currentSessionId;
+    }
+
+    public void setCurrentSessionId(String currentSessionId) {
+        this.currentSessionId = currentSessionId;
+    }
 
     public interface SignalingCallback {
         void onConnected(String deviceCode);
@@ -69,6 +78,7 @@ public class SignalingClient {
                 try {
                     JSONObject data = (JSONObject) args[0];
                     String sessionId = data.getString("sessionId");
+                    this.currentSessionId = sessionId;
                     String requesterName = data.optString("requesterName", "Remote Laptop");
                     Log.i(TAG, "Incoming remote request from " + requesterName + " (Session: " + sessionId + ")");
                     if (callback != null) {
@@ -174,8 +184,13 @@ public class SignalingClient {
     }
 
     public void acceptSession(String sessionId) {
+        this.currentSessionId = sessionId;
         if (socket == null || !socket.connected()) return;
         try {
+            JSONObject joinPayload = new JSONObject();
+            joinPayload.put("sessionId", sessionId);
+            socket.emit("session:join", joinPayload);
+
             JSONObject payload = new JSONObject();
             payload.put("sessionId", sessionId);
             payload.put("isDesktopHost", false);
@@ -190,6 +205,18 @@ public class SignalingClient {
             Log.i(TAG, "Session accepted: " + sessionId);
         } catch (Exception e) {
             Log.e(TAG, "Error sending session:accept", e);
+        }
+    }
+
+    public void sendFrame(String sessionId, String base64Frame) {
+        if (socket == null || !socket.connected() || sessionId == null || base64Frame == null) return;
+        try {
+            JSONObject payload = new JSONObject();
+            payload.put("sessionId", sessionId);
+            payload.put("frame", "data:image/jpeg;base64," + base64Frame);
+            socket.emit("stream:frame", payload);
+        } catch (Exception e) {
+            Log.e(TAG, "Error sending screen frame", e);
         }
     }
 }

@@ -43,3 +43,6 @@ prisma/*.db-journal
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Android APK binaries
+*.apk
