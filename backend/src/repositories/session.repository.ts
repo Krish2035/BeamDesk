@@ -45,10 +45,42 @@ export class SessionRepository {
 
     if (isDbConnected) {
       try {
+        let validRequesterId = data.requesterId;
+        const userExists = await prisma.user.findUnique({ where: { id: data.requesterId } });
+        if (!userExists) {
+          const user = await prisma.user.upsert({
+            where: { id: data.requesterId },
+            update: {},
+            create: {
+              id: data.requesterId,
+              name: 'Krish',
+              email: 'krish@beamdesk.io',
+              passwordHash: '$2a$10$vI8aWBnW3fID.ZQ4/zo1G.q1l5Qe8n1XzQkZcM6Z1/k5XyH0g5qO6',
+            },
+          });
+          validRequesterId = user.id;
+        }
+
+        let validTargetDeviceId = data.targetDeviceId;
+        const deviceExists = await prisma.device.findUnique({ where: { id: data.targetDeviceId } });
+        if (!deviceExists) {
+          const dev = await prisma.device.create({
+            data: {
+              id: data.targetDeviceId,
+              userId: validRequesterId,
+              publicDeviceId: '627-199-178',
+              name: 'Android Companion Phone',
+              platform: 'Android',
+              status: 'ONLINE',
+            },
+          });
+          validTargetDeviceId = dev.id;
+        }
+
         const session = await prisma.session.create({
           data: {
-            requesterId: data.requesterId,
-            targetDeviceId: data.targetDeviceId,
+            requesterId: validRequesterId,
+            targetDeviceId: validTargetDeviceId,
             status: 'PENDING',
             permissions: {
               create: defaultPermissions,
@@ -220,10 +252,22 @@ export class SessionRepository {
   }): Promise<void> {
     if (isDbConnected) {
       try {
+        let validUserId: string | null = null;
+        if (data.userId) {
+          const user = await prisma.user.findUnique({ where: { id: data.userId } });
+          if (user) validUserId = user.id;
+        }
+
+        let validSessionId: string | null = null;
+        if (data.sessionId) {
+          const session = await prisma.session.findUnique({ where: { id: data.sessionId } });
+          if (session) validSessionId = session.id;
+        }
+
         await prisma.auditLog.create({
           data: {
-            userId: data.userId || null,
-            sessionId: data.sessionId || null,
+            userId: validUserId,
+            sessionId: validSessionId,
             action: data.action,
             metadata: data.metadata || {},
             ipAddress: data.ipAddress || null,

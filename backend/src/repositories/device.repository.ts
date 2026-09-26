@@ -240,10 +240,13 @@ export class DeviceRepository {
   ): Promise<DeviceRecord | null> {
     if (isDbConnected) {
       try {
-        return (await prisma.device.update({
-          where: { id },
-          data: { status, lastSeenAt: new Date() },
-        })) as DeviceRecord;
+        const existing = await prisma.device.findUnique({ where: { id } });
+        if (existing) {
+          return (await prisma.device.update({
+            where: { id },
+            data: { status, lastSeenAt: new Date() },
+          })) as DeviceRecord;
+        }
       } catch {
         // Fallback
       }

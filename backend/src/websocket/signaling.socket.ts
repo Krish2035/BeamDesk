@@ -174,17 +174,24 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
         // Put requester into session room
         socket.join(`session:${session.id}`);
 
+        const incomingPayload = {
+          sessionId: session.id,
+          requesterId: payload.requesterId,
+          requesterName: payload.requesterName,
+          targetDeviceId: targetDevice.publicDeviceId,
+          permissions: session.permissions,
+        };
+
         // Notify target device (Host) across all room formats
         io.to(`device:${targetNormalized}`)
           .to(`device:${digits}`)
           .to(`device:${spaceId}`)
-          .emit(SOCKET_EVENTS.SESSION_REQUEST_INCOMING, {
-            sessionId: session.id,
-            requesterId: payload.requesterId,
-            requesterName: payload.requesterName,
-            targetDeviceId: targetDevice.publicDeviceId,
-            permissions: session.permissions,
-          });
+          .emit(SOCKET_EVENTS.SESSION_REQUEST_INCOMING, incomingPayload);
+
+        // Also emit directly to target socket if found
+        if (targetSocketId) {
+          io.to(targetSocketId).emit(SOCKET_EVENTS.SESSION_REQUEST_INCOMING, incomingPayload);
+        }
       } catch (err: any) {
         logger.error('Error initiating session request:', err);
         socket.emit(SOCKET_EVENTS.SESSION_REJECTED, {
