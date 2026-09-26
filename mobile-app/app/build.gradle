@@ -39,6 +39,6 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
 
-    // WebRTC Android Library
-    implementation 'com.mesibo.webrtc:webrtc:1.0.5'
+    // WebRTC Android Library (Official Stream WebRTC on MavenCentral)
+    implementation 'io.getstream:stream-webrtc-android:1.1.2'
 }
