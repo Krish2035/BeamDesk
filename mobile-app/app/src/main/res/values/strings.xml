@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BeamDesk</string>
+    <string name="accessibility_description">Allows BeamDesk to inject physical mouse clicks, touch gestures, and keyboard inputs from your remote laptop.</string>
+</resources>

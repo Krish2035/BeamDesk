@@ -1,0 +1,65 @@
+name: Build BeamDesk Android APK
+
+on:
+  push:
+    paths:
+      - 'mobile-app/**'
+      - '.github/workflows/build-apk.yml'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    name: Build & Release BeamDesk APK
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build Debug APK with Gradle
+        run: |
+          cd mobile-app
+          gradle wrapper
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BeamDesk-Android-App
+          path: mobile-app/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/heads/main')
+        with:
+          tag_name: v1.0.0-build${{ github.run_number }}
+          name: BeamDesk Android Companion v1.0.0 (Build ${{ github.run_number }})
+          body: |
+            ### 📱 BeamDesk Android Remote Desktop Companion
+            Download and install `app-debug.apk` directly on your Android phone or tablet.
+
+            **Features:**
+            - **No Cable & No Same Wi-Fi Needed**: Works across 4G/5G mobile data and any Wi-Fi.
+            - **Native Screen Capture** (`MediaProjection`): Streams full Android home screen and apps.
+            - **Remote Touch Control** (`AccessibilityService`): Laptop mouse clicks touch the phone.
+            - **Navigation Controls**: Back, Home, Recents buttons from your laptop.
+          files: mobile-app/app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
