@@ -21,7 +21,7 @@ export interface RefreshTokenRecord {
   createdAt: Date;
 }
 
-const defaultPasswordHash = bcrypt.hashSync('Password123!', 10);
+export const defaultPasswordHash = bcrypt.hashSync('Password123!', 10);
 
 const initialDefaultUsers: UserRecord[] = [
   {
@@ -180,6 +180,25 @@ export class UserRepository {
     if (rec) {
       rec.revoked = true;
       writeJsonFile('refresh_tokens.json', persistentRefreshTokens);
+    }
+  }
+
+  async updatePassword(userId: string, passwordHash: string): Promise<void> {
+    if (isDbConnected) {
+      try {
+        await prisma.user.update({
+          where: { id: userId },
+          data: { passwordHash },
+        });
+        return;
+      } catch {
+        // Fallback
+      }
+    }
+    const user = persistentUsers.find((u) => u.id === userId);
+    if (user) {
+      user.passwordHash = passwordHash;
+      writeJsonFile('users.json', persistentUsers);
     }
   }
 }

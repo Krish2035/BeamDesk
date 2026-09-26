@@ -2,6 +2,7 @@ import { prisma, isDbConnected } from '../database/index.js';
 import { v4 as uuidv4 } from 'uuid';
 import { SessionPermissions, SessionState } from '../types/index.js';
 import { readJsonFile, writeJsonFile } from '../utils/fileStorage.js';
+import { defaultPasswordHash } from './user.repository.js';
 
 export interface SessionRecord {
   id: string;
@@ -55,7 +56,7 @@ export class SessionRepository {
               id: data.requesterId,
               name: 'Krish',
               email: 'krish@beamdesk.io',
-              passwordHash: '$2a$10$vI8aWBnW3fID.ZQ4/zo1G.q1l5Qe8n1XzQkZcM6Z1/k5XyH0g5qO6',
+              passwordHash: defaultPasswordHash,
             },
           });
           validRequesterId = user.id;

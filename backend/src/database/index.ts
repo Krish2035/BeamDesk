@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { logger } from '../utils/logger.js';
+import { defaultPasswordHash } from '../repositories/user.repository.js';
 
 // Extend NodeJS global to maintain a singleton in dev
 declare global {
@@ -27,8 +28,6 @@ export let isDbConnected = false;
 
 export const seedDefaultData = async () => {
   try {
-    const defaultPasswordHash = '$2a$10$vI8aWBnW3fID.ZQ4/zo1G.q1l5Qe8n1XzQkZcM6Z1/k5XyH0g5qO6';
-
     const users = [
       {
         id: 'user-krish-001',
