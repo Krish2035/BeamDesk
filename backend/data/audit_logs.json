@@ -1,0 +1,2059 @@
+[
+  {
+    "id": "93a2f595-e6ed-4f6a-8099-46bf307409a2",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T09:56:26.138Z"
+  },
+  {
+    "id": "069e7efe-2d19-4d71-bee1-d7d2676b94ee",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T09:57:06.654Z"
+  },
+  {
+    "id": "4ce74d19-6ce9-4674-9899-23625e6fdd91",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "c916761b-59cd-4ee6-ab18-45c2c571aa91",
+      "publicDeviceId": "737-830-526",
+      "platform": "Windows"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T09:57:06.687Z"
+  },
+  {
+    "id": "93ef294b-0679-42e7-a0ab-2841e3adfed2",
+    "userId": "c7b24b44-d326-4381-a384-8d4572eac70a",
+    "sessionId": null,
+    "action": "USER_REGISTERED",
+    "metadata": {
+      "email": "testuser_1790416687050@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T09:58:07.253Z"
+  },
+  {
+    "id": "a0435074-1d44-4bd5-a506-a2e1012ebc99",
+    "userId": "c7b24b44-d326-4381-a384-8d4572eac70a",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "testuser_1790416687050@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T09:58:07.410Z"
+  },
+  {
+    "id": "7589a2ce-6220-4317-82b5-c12cd5712ad7",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T10:01:16.229Z"
+  },
+  {
+    "id": "2ae93d07-0e0e-4b01-a691-09b4a6611876",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "7e5742e0-599e-4f51-8fde-a05035d036a7",
+      "publicDeviceId": "499-602-726",
+      "platform": "Windows"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:01:16.452Z"
+  },
+  {
+    "id": "e25c6dfa-76a7-47a1-962a-a2dd37b4e385",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "demo@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T10:03:57.123Z"
+  },
+  {
+    "id": "4e2f8fbc-dbca-4188-ad1f-e340fe0a746d",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+      "publicDeviceId": "116-636-420",
+      "platform": "Linux"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:03:57.160Z"
+  },
+  {
+    "id": "1a338f92-4fe9-4e69-ab04-1c10ad2e4c23",
+    "userId": "user-krish-001",
+    "sessionId": "4f0eff54-af0b-40c4-b37c-4312f85d284f",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+      "publicDeviceId": "116-636-420"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:04:14.777Z"
+  },
+  {
+    "id": "d1fcdcec-ddc5-46f0-b02d-cfa01e332d42",
+    "userId": null,
+    "sessionId": "4f0eff54-af0b-40c4-b37c-4312f85d284f",
+    "action": "SESSION_REJECTED",
+    "metadata": {
+      "status": "REJECTED",
+      "endReason": "Rejected by host user"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:04:30.469Z"
+  },
+  {
+    "id": "f85adf5a-c906-4bc3-b9fe-29a5abb24fbb",
+    "userId": "user-krish-001",
+    "sessionId": "f7b70d37-37dd-4f47-b881-1f97baefd673",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+      "publicDeviceId": "116-636-420"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:04:52.583Z"
+  },
+  {
+    "id": "376254aa-7de7-4fff-b882-890cf8b2b6dd",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T10:06:17.222Z"
+  },
+  {
+    "id": "ad0ccf8a-f559-4514-b230-129003c240df",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+      "publicDeviceId": "522-945-202",
+      "platform": "Android"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:06:17.241Z"
+  },
+  {
+    "id": "4a8a3e1f-6fd1-458d-8d6b-5d3f3286eea2",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "demo@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T10:06:32.655Z"
+  },
+  {
+    "id": "5fba0a60-12f3-4082-8e93-1feae5e206ae",
+    "userId": "user-demo-002",
+    "sessionId": "2cd943e0-e2dd-4f5a-8b6a-4733b7dd553d",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+      "publicDeviceId": "522-945-202"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:06:54.244Z"
+  },
+  {
+    "id": "bde3d8ce-58fd-4c0e-a1e4-403550fc1c2e",
+    "userId": null,
+    "sessionId": "2cd943e0-e2dd-4f5a-8b6a-4733b7dd553d",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:07:17.107Z"
+  },
+  {
+    "id": "3a57fba3-6c7c-41a5-b2ae-e7c2c0a1c62a",
+    "userId": null,
+    "sessionId": "2cd943e0-e2dd-4f5a-8b6a-4733b7dd553d",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:07:17.133Z"
+  },
+  {
+    "id": "733167d2-81be-4697-b64c-befa51bf3135",
+    "userId": null,
+    "sessionId": "2cd943e0-e2dd-4f5a-8b6a-4733b7dd553d",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:07:34.448Z"
+  },
+  {
+    "id": "c59e64eb-e01e-4fa3-baad-91284019693d",
+    "userId": null,
+    "sessionId": "2cd943e0-e2dd-4f5a-8b6a-4733b7dd553d",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:07:39.834Z"
+  },
+  {
+    "id": "7a5a5fc8-1658-4b36-9a60-ceeb8873916a",
+    "userId": "user-krish-001",
+    "sessionId": "88bd667f-16ee-4d22-b329-4f861fcb4793",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+      "publicDeviceId": "116-636-420"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:08:30.464Z"
+  },
+  {
+    "id": "071907d9-4414-40f6-96cd-54faa3243c22",
+    "userId": null,
+    "sessionId": "88bd667f-16ee-4d22-b329-4f861fcb4793",
+    "action": "SESSION_REJECTED",
+    "metadata": {
+      "status": "REJECTED",
+      "endReason": "Rejected by host user"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:09:05.912Z"
+  },
+  {
+    "id": "194c0f2f-ea57-4480-b924-81f4c1dcd845",
+    "userId": "user-krish-001",
+    "sessionId": "930ea224-3e1c-445a-a3a4-958ede6a71c0",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+      "publicDeviceId": "116-636-420"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:11:26.805Z"
+  },
+  {
+    "id": "49605308-6b82-41cf-87ec-ebd6c306adcd",
+    "userId": null,
+    "sessionId": "930ea224-3e1c-445a-a3a4-958ede6a71c0",
+    "action": "SESSION_REJECTED",
+    "metadata": {
+      "status": "REJECTED",
+      "endReason": "Rejected by host user"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:11:30.886Z"
+  },
+  {
+    "id": "4b2478f8-61cf-44e1-94d5-1f98e0994716",
+    "userId": "user-demo-002",
+    "sessionId": "a28492f7-14d2-4cc9-be99-0ad9d1166df7",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+      "publicDeviceId": "522-945-202"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:11:59.420Z"
+  },
+  {
+    "id": "703dc7a7-895a-4be3-b1ab-51f062662d75",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T10:42:46.645Z"
+  },
+  {
+    "id": "dc940568-f3ad-485c-98e7-a450d698bf41",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T10:46:13.632Z"
+  },
+  {
+    "id": "f73184b3-0f30-4bca-9e6d-440b9c00b84d",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "47c6574a-e661-4a03-b7e8-d8b9f271851e",
+      "publicDeviceId": "559-365-611",
+      "platform": "Linux"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T10:46:13.687Z"
+  },
+  {
+    "id": "40ac7acf-617d-4908-a107-69546551d4b3",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T11:03:16.426Z"
+  },
+  {
+    "id": "b38f4794-6ee0-41cf-8038-279a5b087f00",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T11:03:58.285Z"
+  },
+  {
+    "id": "0234466b-7835-4c2d-b497-b5b464168eac",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T11:05:24.436Z"
+  },
+  {
+    "id": "ba7035ab-0d77-4bfd-b3ef-da4b60ffb102",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T11:05:49.789Z"
+  },
+  {
+    "id": "18ac8b72-a886-4c71-90b5-c7f61178c4f6",
+    "userId": "user-krish-001",
+    "sessionId": "5713123c-2b7b-49aa-a41d-88792842a63c",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "47c6574a-e661-4a03-b7e8-d8b9f271851e",
+      "publicDeviceId": "559-365-611"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:05:49.908Z"
+  },
+  {
+    "id": "4a54be7a-3729-4752-8736-f5a522173215",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "demo@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T11:33:44.223Z"
+  },
+  {
+    "id": "3836dc5c-0ccb-48b5-ae1e-094e2311c4b2",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994",
+      "platform": "Linux"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:33:44.274Z"
+  },
+  {
+    "id": "06be7e80-f342-455c-b092-9a3427e76fbc",
+    "userId": "user-krish-001",
+    "sessionId": "7838bfdd-f96b-4dd0-b065-8b3d2db97d14",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:34:40.451Z"
+  },
+  {
+    "id": "901aff38-8362-4445-b9aa-9c3851a8101b",
+    "userId": null,
+    "sessionId": "7838bfdd-f96b-4dd0-b065-8b3d2db97d14",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:34:43.689Z"
+  },
+  {
+    "id": "0626026c-0b5d-4ead-9005-dc2a37a0473e",
+    "userId": null,
+    "sessionId": "7838bfdd-f96b-4dd0-b065-8b3d2db97d14",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:34:43.692Z"
+  },
+  {
+    "id": "57fad8a4-91ba-4b8a-b79e-bddc5966d407",
+    "userId": null,
+    "sessionId": "7838bfdd-f96b-4dd0-b065-8b3d2db97d14",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:35:17.674Z"
+  },
+  {
+    "id": "7c505caa-4848-4cca-bbff-7bca2f27cbfd",
+    "userId": null,
+    "sessionId": "7838bfdd-f96b-4dd0-b065-8b3d2db97d14",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:35:20.705Z"
+  },
+  {
+    "id": "498b53a8-90e9-4922-bc23-77e5bc66c187",
+    "userId": "user-demo-002",
+    "sessionId": "ff8c39f4-5f41-489f-bc72-04b584e2633e",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "7e5742e0-599e-4f51-8fde-a05035d036a7",
+      "publicDeviceId": "499-602-726"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:35:42.886Z"
+  },
+  {
+    "id": "e5c4d4f6-c827-49fb-b0a0-681b86712c8f",
+    "userId": null,
+    "sessionId": "ff8c39f4-5f41-489f-bc72-04b584e2633e",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:36:00.550Z"
+  },
+  {
+    "id": "b7702c6f-5d71-404e-9b00-cab051eecfba",
+    "userId": null,
+    "sessionId": "ff8c39f4-5f41-489f-bc72-04b584e2633e",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:36:00.566Z"
+  },
+  {
+    "id": "c658ee0d-d313-44c2-ac0d-5f3a83da5436",
+    "userId": null,
+    "sessionId": "ff8c39f4-5f41-489f-bc72-04b584e2633e",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:36:52.529Z"
+  },
+  {
+    "id": "c37faba5-bc3c-4f4f-8b3e-e2937a6d9588",
+    "userId": null,
+    "sessionId": "ff8c39f4-5f41-489f-bc72-04b584e2633e",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:36:55.133Z"
+  },
+  {
+    "id": "42f47440-6df2-4cb2-85a8-56b8767d728b",
+    "userId": "user-krish-001",
+    "sessionId": "215f4023-5212-4c73-8ccb-68573e5e877f",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:37:26.489Z"
+  },
+  {
+    "id": "f6c3b2ac-8968-42e8-b273-fa95e34b2f9a",
+    "userId": null,
+    "sessionId": "ff8c39f4-5f41-489f-bc72-04b584e2633e",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:40:09.618Z"
+  },
+  {
+    "id": "0dd163af-8dc2-4be0-9c75-2d302fcbef4e",
+    "userId": "user-krish-001",
+    "sessionId": "be727e09-290b-4522-a574-84d8630d3765",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:41:47.809Z"
+  },
+  {
+    "id": "450106e2-f215-4a9d-b196-3bff30b4222e",
+    "userId": null,
+    "sessionId": "be727e09-290b-4522-a574-84d8630d3765",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:41:55.272Z"
+  },
+  {
+    "id": "ab6fa2ec-b2a6-464f-9e64-16357dc28e6f",
+    "userId": null,
+    "sessionId": "be727e09-290b-4522-a574-84d8630d3765",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:41:55.274Z"
+  },
+  {
+    "id": "66184a8c-7fbc-45a9-94fe-b0ca0cd53cbd",
+    "userId": null,
+    "sessionId": "be727e09-290b-4522-a574-84d8630d3765",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:42:47.739Z"
+  },
+  {
+    "id": "8c50930c-170f-4634-b41d-81d96c810dac",
+    "userId": null,
+    "sessionId": "be727e09-290b-4522-a574-84d8630d3765",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:42:50.812Z"
+  },
+  {
+    "id": "cfac8ab5-17fd-43ec-ad32-7b608288cb32",
+    "userId": "user-demo-002",
+    "sessionId": "43617259-02cb-427a-ab6e-a57305aff340",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "7e5742e0-599e-4f51-8fde-a05035d036a7",
+      "publicDeviceId": "499-602-726"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:43:09.147Z"
+  },
+  {
+    "id": "ffa94592-508f-4b71-820b-c591a96f0322",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T11:48:24.781Z"
+  },
+  {
+    "id": "7a4bb959-9d03-4a99-8633-68f9642245d5",
+    "userId": "user-krish-001",
+    "sessionId": "ea4e33b1-d980-4499-8a9a-a57228e3a870",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T11:59:07.995Z"
+  },
+  {
+    "id": "4f15d801-81b6-4d55-ae63-6cf222525559",
+    "userId": "user-demo-002",
+    "sessionId": "93439b15-201a-4dbd-98dd-b3a907e2ddc0",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+      "publicDeviceId": "522-945-202"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:00:06.383Z"
+  },
+  {
+    "id": "a7052307-294c-4cb5-8949-8f3a8509a5ca",
+    "userId": null,
+    "sessionId": "93439b15-201a-4dbd-98dd-b3a907e2ddc0",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:00:23.155Z"
+  },
+  {
+    "id": "4644660f-ef35-4fa4-9f4d-cdced6b172d2",
+    "userId": null,
+    "sessionId": "93439b15-201a-4dbd-98dd-b3a907e2ddc0",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:00:23.169Z"
+  },
+  {
+    "id": "ded0495d-aaf0-4ff5-b64e-f897424b7bb7",
+    "userId": null,
+    "sessionId": "93439b15-201a-4dbd-98dd-b3a907e2ddc0",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:03:34.075Z"
+  },
+  {
+    "id": "673f0ddf-6a58-419e-8334-1abe47a83c4d",
+    "userId": null,
+    "sessionId": "93439b15-201a-4dbd-98dd-b3a907e2ddc0",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:03:39.981Z"
+  },
+  {
+    "id": "96924fdc-2f4d-4fb7-a88e-1051d911e5d8",
+    "userId": "user-krish-001",
+    "sessionId": "11febbd7-48cd-481c-a4e8-5653789b1a1b",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:11:53.382Z"
+  },
+  {
+    "id": "93e5696e-786d-4e6d-84d3-4838c0da2118",
+    "userId": null,
+    "sessionId": "11febbd7-48cd-481c-a4e8-5653789b1a1b",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:11:58.141Z"
+  },
+  {
+    "id": "3a4316c8-24ba-4faf-856f-5ad1056b645e",
+    "userId": null,
+    "sessionId": "11febbd7-48cd-481c-a4e8-5653789b1a1b",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:11:58.144Z"
+  },
+  {
+    "id": "581e4d3a-dedd-4853-8460-a02f12d01c9b",
+    "userId": null,
+    "sessionId": "11febbd7-48cd-481c-a4e8-5653789b1a1b",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:12:04.118Z"
+  },
+  {
+    "id": "950a8c7d-c5f1-467f-86aa-000c131fe210",
+    "userId": null,
+    "sessionId": "11febbd7-48cd-481c-a4e8-5653789b1a1b",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:12:07.086Z"
+  },
+  {
+    "id": "1fa28194-7f5f-42da-91ee-675d0cbb4995",
+    "userId": "user-demo-002",
+    "sessionId": "8977345e-1066-410b-9417-2ea4c9edc1c5",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+      "publicDeviceId": "522-945-202"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:12:22.327Z"
+  },
+  {
+    "id": "200883aa-8ba3-4399-8059-ad52223d4b7b",
+    "userId": null,
+    "sessionId": "8977345e-1066-410b-9417-2ea4c9edc1c5",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:12:28.469Z"
+  },
+  {
+    "id": "117c38a8-0d0b-430c-ba7d-bd757e583087",
+    "userId": null,
+    "sessionId": "8977345e-1066-410b-9417-2ea4c9edc1c5",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:12:28.481Z"
+  },
+  {
+    "id": "cea4bc35-346d-492f-8694-f181c425d0ea",
+    "userId": null,
+    "sessionId": "8977345e-1066-410b-9417-2ea4c9edc1c5",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:13:10.778Z"
+  },
+  {
+    "id": "8110d471-d86b-439f-b0fe-f6b9ff58529d",
+    "userId": null,
+    "sessionId": "8977345e-1066-410b-9417-2ea4c9edc1c5",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:13:13.488Z"
+  },
+  {
+    "id": "b26a998b-6e3c-4336-b25f-b00b0a0620cc",
+    "userId": "user-krish-001",
+    "sessionId": "f2637c56-0b8a-4dc7-9b87-23ab08dc7053",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:16:49.765Z"
+  },
+  {
+    "id": "aac30872-d10e-4ee7-813e-95fee72bda48",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "demo@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T12:17:23.809Z"
+  },
+  {
+    "id": "9381b737-7c33-4b82-a9eb-2c3ad614815e",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T12:17:39.346Z"
+  },
+  {
+    "id": "0a3d8865-2e80-49b9-9bdf-43791e3c1729",
+    "userId": "user-krish-001",
+    "sessionId": "a3092bf8-6597-470d-b26e-a564faa1bc51",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:18:42.803Z"
+  },
+  {
+    "id": "25cc774e-bab7-4c50-8c13-4464c492c982",
+    "userId": null,
+    "sessionId": "a3092bf8-6597-470d-b26e-a564faa1bc51",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:18:45.718Z"
+  },
+  {
+    "id": "f298c840-3930-4427-9614-9d970336f2dd",
+    "userId": null,
+    "sessionId": "a3092bf8-6597-470d-b26e-a564faa1bc51",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:18:45.720Z"
+  },
+  {
+    "id": "8c1c2bf4-aef3-496c-a039-a18f6a5277b6",
+    "userId": null,
+    "sessionId": "a3092bf8-6597-470d-b26e-a564faa1bc51",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:19:02.569Z"
+  },
+  {
+    "id": "d2d63ae9-1fcb-4acc-a3d8-a7c980123417",
+    "userId": null,
+    "sessionId": "a3092bf8-6597-470d-b26e-a564faa1bc51",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:19:05.358Z"
+  },
+  {
+    "id": "ede73237-abba-4d24-9b98-d826c24f3133",
+    "userId": "user-demo-002",
+    "sessionId": "1d284b9d-2b8a-4fc7-9c7e-933220a6c667",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+      "publicDeviceId": "522-945-202"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:20:05.169Z"
+  },
+  {
+    "id": "eff6fbe7-9350-4049-b369-1de6425a0f82",
+    "userId": "user-krish-001",
+    "sessionId": "a86adec9-3faa-4a7c-9b81-ffddf1c782eb",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:21:27.591Z"
+  },
+  {
+    "id": "6f9f4cc5-6d2f-4e4d-9ed5-14f656b85e24",
+    "userId": "user-krish-001",
+    "sessionId": "6c67b1ee-8f9c-40c9-9fa5-705428ad0f92",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:21:51.988Z"
+  },
+  {
+    "id": "b3c45bf5-a0f6-4d26-8f50-045f793bf99b",
+    "userId": null,
+    "sessionId": "6c67b1ee-8f9c-40c9-9fa5-705428ad0f92",
+    "action": "SESSION_REJECTED",
+    "metadata": {
+      "status": "REJECTED",
+      "endReason": "Rejected by host user"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:21:53.221Z"
+  },
+  {
+    "id": "c3cd0e33-9f60-4410-916e-de0666c08b52",
+    "userId": "user-krish-001",
+    "sessionId": "bcb947e4-96e8-4a1d-b02d-b33e60e7af60",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:27:22.268Z"
+  },
+  {
+    "id": "51ece096-f089-45cc-a58f-6f4400bdd2c8",
+    "userId": null,
+    "sessionId": "bcb947e4-96e8-4a1d-b02d-b33e60e7af60",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:27:25.281Z"
+  },
+  {
+    "id": "8b66b5a0-79f1-4c99-89ef-6ccb37d4a6bb",
+    "userId": null,
+    "sessionId": "bcb947e4-96e8-4a1d-b02d-b33e60e7af60",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:27:25.286Z"
+  },
+  {
+    "id": "95057fe2-9222-4b41-adde-4c9cff428914",
+    "userId": null,
+    "sessionId": "bcb947e4-96e8-4a1d-b02d-b33e60e7af60",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:28:31.277Z"
+  },
+  {
+    "id": "8afba307-f6d7-44f6-bf36-e7f823efe61b",
+    "userId": null,
+    "sessionId": "bcb947e4-96e8-4a1d-b02d-b33e60e7af60",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:28:35.714Z"
+  },
+  {
+    "id": "297851de-c5b4-4ef0-93ee-f40e5787e12d",
+    "userId": "user-demo-002",
+    "sessionId": "e4628a1a-3c36-4262-90d1-42c506edc5a7",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+      "publicDeviceId": "522-945-202"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:28:59.397Z"
+  },
+  {
+    "id": "1fd0faa2-cc3d-4d84-b224-f1c5dbf6c632",
+    "userId": null,
+    "sessionId": "e4628a1a-3c36-4262-90d1-42c506edc5a7",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:29:11.852Z"
+  },
+  {
+    "id": "b1fa2d57-8aba-4dc8-8b99-b417658aa020",
+    "userId": null,
+    "sessionId": "e4628a1a-3c36-4262-90d1-42c506edc5a7",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:29:11.858Z"
+  },
+  {
+    "id": "9e4d3eba-fa56-4f15-a297-cf4ecbead519",
+    "userId": null,
+    "sessionId": "e4628a1a-3c36-4262-90d1-42c506edc5a7",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:29:51.095Z"
+  },
+  {
+    "id": "6499731f-cd3f-49c8-a6d2-170ab2d22bd8",
+    "userId": null,
+    "sessionId": "e4628a1a-3c36-4262-90d1-42c506edc5a7",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T12:29:59.462Z"
+  },
+  {
+    "id": "d78cbb00-46eb-46b5-8dc4-ad9da0d423c2",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T14:20:10.341Z"
+  },
+  {
+    "id": "d4472951-d6ee-4dfd-be30-0eafb14d7a9c",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "demo@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T14:21:28.063Z"
+  },
+  {
+    "id": "520d2af2-30c3-40b1-9618-ad994dceddee",
+    "userId": "user-krish-001",
+    "sessionId": "644166ed-9b8a-4030-8ac6-1e17fecf55a8",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:22:07.583Z"
+  },
+  {
+    "id": "882bee0d-58bf-4b20-aa1e-508fa7d15b16",
+    "userId": null,
+    "sessionId": "644166ed-9b8a-4030-8ac6-1e17fecf55a8",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:22:13.460Z"
+  },
+  {
+    "id": "d159a035-c91d-41c1-afeb-d908587085af",
+    "userId": null,
+    "sessionId": "644166ed-9b8a-4030-8ac6-1e17fecf55a8",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:22:13.565Z"
+  },
+  {
+    "id": "07ca66eb-1c62-4b6e-b8b6-e5177af366c0",
+    "userId": null,
+    "sessionId": "644166ed-9b8a-4030-8ac6-1e17fecf55a8",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:22:38.086Z"
+  },
+  {
+    "id": "b60ead96-8d73-49dd-873d-c67f4e179b2f",
+    "userId": null,
+    "sessionId": "644166ed-9b8a-4030-8ac6-1e17fecf55a8",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:22:42.629Z"
+  },
+  {
+    "id": "bd69b8fe-1839-4f64-abf3-656f70eae574",
+    "userId": "user-krish-001",
+    "sessionId": "6959727f-e481-41e1-a746-87a009cb3885",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:22:58.644Z"
+  },
+  {
+    "id": "e5b19910-88d9-4d2b-a730-0d6f8ea3fd30",
+    "userId": "user-krish-001",
+    "sessionId": "78cb6605-7c49-44aa-b58c-97e9ea88867d",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:23:22.687Z"
+  },
+  {
+    "id": "b726db73-0f6e-4ac9-89b6-567055626ce1",
+    "userId": null,
+    "sessionId": "78cb6605-7c49-44aa-b58c-97e9ea88867d",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:23:27.840Z"
+  },
+  {
+    "id": "d52376a0-5ad3-4b97-9bfc-463ae1506f3a",
+    "userId": null,
+    "sessionId": "78cb6605-7c49-44aa-b58c-97e9ea88867d",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:23:27.842Z"
+  },
+  {
+    "id": "f7ae4325-c4d5-422d-a26a-c756538f337c",
+    "userId": null,
+    "sessionId": "78cb6605-7c49-44aa-b58c-97e9ea88867d",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:35:27.352Z"
+  },
+  {
+    "id": "d872c9da-a0e1-4312-9b20-96a1bd0ece29",
+    "userId": null,
+    "sessionId": "78cb6605-7c49-44aa-b58c-97e9ea88867d",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:35:33.731Z"
+  },
+  {
+    "id": "00c91334-4fd7-4fba-8652-bab547f55c4e",
+    "userId": "1b3d97b4-d3ab-41bc-99b4-552031632ef0",
+    "sessionId": null,
+    "action": "USER_REGISTERED",
+    "metadata": {
+      "email": "tester@example.com"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T14:49:15.019Z"
+  },
+  {
+    "id": "ec92642f-f4c7-42e1-9d62-f10ea04056a5",
+    "userId": "1b3d97b4-d3ab-41bc-99b4-552031632ef0",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "f1fc4788-c4e6-4d2b-9b81-ef25f27cec73",
+      "publicDeviceId": "486-426-659",
+      "platform": "Windows"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:49:15.136Z"
+  },
+  {
+    "id": "dfdc2df2-7069-4e5b-bc47-3ac795ae752c",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "demo@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T14:49:52.843Z"
+  },
+  {
+    "id": "6d08f8ac-6da2-4ed2-98af-a7fb89a4bb69",
+    "userId": "1b3d97b4-d3ab-41bc-99b4-552031632ef0",
+    "sessionId": "75593448-97f5-4e61-94f2-e457901b7dac",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+      "publicDeviceId": "611-945-994"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:50:48.311Z"
+  },
+  {
+    "id": "da1cfd40-f6d9-445c-b870-5e20a9c53237",
+    "userId": null,
+    "sessionId": "75593448-97f5-4e61-94f2-e457901b7dac",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:50:53.828Z"
+  },
+  {
+    "id": "93089386-e45f-40af-b81f-34072d982024",
+    "userId": null,
+    "sessionId": "75593448-97f5-4e61-94f2-e457901b7dac",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:50:53.832Z"
+  },
+  {
+    "id": "747c3e62-5d27-4a0b-bb17-6a4748f5b23e",
+    "userId": null,
+    "sessionId": "75593448-97f5-4e61-94f2-e457901b7dac",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:52:35.154Z"
+  },
+  {
+    "id": "faa15e62-6f52-4557-8261-e0ef12b40c09",
+    "userId": null,
+    "sessionId": "75593448-97f5-4e61-94f2-e457901b7dac",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:52:38.917Z"
+  },
+  {
+    "id": "7a74f693-10b7-4df4-905d-42b00d9b5908",
+    "userId": "user-demo-002",
+    "sessionId": "c7a498db-a718-47b4-a383-c463faf4efea",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "f1fc4788-c4e6-4d2b-9b81-ef25f27cec73",
+      "publicDeviceId": "486-426-659"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:53:03.433Z"
+  },
+  {
+    "id": "2bb272a4-142e-4170-827a-0aa1957ad3d3",
+    "userId": "user-demo-002",
+    "sessionId": "bad78018-9aed-412a-9bc8-19b9dbfef954",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "f1fc4788-c4e6-4d2b-9b81-ef25f27cec73",
+      "publicDeviceId": "486-426-659"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:53:45.910Z"
+  },
+  {
+    "id": "817efbeb-c96c-46ce-9f5c-2a5741dd8a5c",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T14:59:16.440Z"
+  },
+  {
+    "id": "79f26269-6f05-406e-af1c-486b328615df",
+    "userId": "user-demo-002",
+    "sessionId": "17c3459b-2c5c-4e16-8f34-827214ff7cf6",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+      "publicDeviceId": "522-945-202"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:59:36.804Z"
+  },
+  {
+    "id": "e307d4fd-5155-433c-b80e-43b0c8aaa0f8",
+    "userId": null,
+    "sessionId": "17c3459b-2c5c-4e16-8f34-827214ff7cf6",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:59:43.485Z"
+  },
+  {
+    "id": "c316833d-51be-4802-aa2e-908307943dbc",
+    "userId": null,
+    "sessionId": "17c3459b-2c5c-4e16-8f34-827214ff7cf6",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T14:59:43.494Z"
+  },
+  {
+    "id": "6521385b-872b-4be1-ad6a-f73778fc6930",
+    "userId": null,
+    "sessionId": "17c3459b-2c5c-4e16-8f34-827214ff7cf6",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:04:07.596Z"
+  },
+  {
+    "id": "f52b968b-d5ab-40dc-b9fc-d577d1302376",
+    "userId": null,
+    "sessionId": "17c3459b-2c5c-4e16-8f34-827214ff7cf6",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:04:10.370Z"
+  },
+  {
+    "id": "ec696c7e-03e1-47c8-babd-78ba0346b040",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T15:20:59.543Z"
+  },
+  {
+    "id": "493b9956-a02c-4629-8e98-68a5ae6b8bcb",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "37c78ede-0a70-49d1-b2d9-26ce7c6f6c9a",
+      "publicDeviceId": "234-440-694",
+      "platform": "Windows"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:20:59.568Z"
+  },
+  {
+    "id": "addf3b01-9c29-475c-9619-0f3b7efb19fd",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "demo@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T15:24:23.839Z"
+  },
+  {
+    "id": "d7987c06-570c-4cd3-8618-2af619dc0510",
+    "userId": "user-demo-002",
+    "sessionId": null,
+    "action": "DEVICE_REGISTERED",
+    "metadata": {
+      "deviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151",
+      "platform": "Linux"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:24:23.893Z"
+  },
+  {
+    "id": "f8506e98-33e2-4101-9a33-a99dca1f0a56",
+    "userId": "user-krish-001",
+    "sessionId": "3e3862e1-33da-49dc-a733-6c4f6da42318",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:25:12.548Z"
+  },
+  {
+    "id": "fb8c28ce-b593-4234-bdee-06a263354fa3",
+    "userId": null,
+    "sessionId": "3e3862e1-33da-49dc-a733-6c4f6da42318",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:25:17.978Z"
+  },
+  {
+    "id": "a4b17766-f8a6-41fd-9c35-ea131ba9059b",
+    "userId": null,
+    "sessionId": "3e3862e1-33da-49dc-a733-6c4f6da42318",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:25:17.980Z"
+  },
+  {
+    "id": "1d6f29c6-5a89-401f-ad9d-324e58428bf0",
+    "userId": null,
+    "sessionId": "3e3862e1-33da-49dc-a733-6c4f6da42318",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:25:23.745Z"
+  },
+  {
+    "id": "27a540df-27e0-4ad1-83b6-d0364ef880fb",
+    "userId": null,
+    "sessionId": "3e3862e1-33da-49dc-a733-6c4f6da42318",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:25:33.600Z"
+  },
+  {
+    "id": "3e69e8a8-6045-4616-96b0-5c3881e2151d",
+    "userId": "user-krish-001",
+    "sessionId": "96c58c2b-8132-4ac3-ba7c-994ada886995",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:25:46.354Z"
+  },
+  {
+    "id": "932c7b24-90a6-4f0e-bf89-18bf6993e6b5",
+    "userId": "user-krish-001",
+    "sessionId": "36c3fd8a-cd1d-4c38-9931-84b2a920a2a5",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:26:26.227Z"
+  },
+  {
+    "id": "3cd1b246-c3d3-4deb-8099-fdd7b57425fc",
+    "userId": null,
+    "sessionId": "36c3fd8a-cd1d-4c38-9931-84b2a920a2a5",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:26:31.440Z"
+  },
+  {
+    "id": "d69bcbb5-9d85-4f0a-ba46-08f0fb686526",
+    "userId": null,
+    "sessionId": "36c3fd8a-cd1d-4c38-9931-84b2a920a2a5",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:26:31.442Z"
+  },
+  {
+    "id": "8a73a0ad-67ed-4e81-a504-eedaae661f72",
+    "userId": null,
+    "sessionId": "36c3fd8a-cd1d-4c38-9931-84b2a920a2a5",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:27:01.020Z"
+  },
+  {
+    "id": "d0985489-f477-4892-864b-1e8ed3a5fe40",
+    "userId": "user-krish-001",
+    "sessionId": "defb77c1-ab0c-4d84-b02c-dc3bfd600f81",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:29:39.920Z"
+  },
+  {
+    "id": "01152e44-1b84-436c-9ec3-8d7a57f3392e",
+    "userId": null,
+    "sessionId": "defb77c1-ab0c-4d84-b02c-dc3bfd600f81",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:29:48.867Z"
+  },
+  {
+    "id": "9d64c423-527c-418d-8c79-54855af827b3",
+    "userId": null,
+    "sessionId": "defb77c1-ab0c-4d84-b02c-dc3bfd600f81",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:29:48.870Z"
+  },
+  {
+    "id": "2301ed95-2b29-4b56-b911-9bfeb7088db7",
+    "userId": null,
+    "sessionId": "defb77c1-ab0c-4d84-b02c-dc3bfd600f81",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:30:09.948Z"
+  },
+  {
+    "id": "dce01cd6-1f73-4e03-a943-392afc5e3e9b",
+    "userId": null,
+    "sessionId": "defb77c1-ab0c-4d84-b02c-dc3bfd600f81",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:30:16.325Z"
+  },
+  {
+    "id": "0c882f95-9d82-4e47-b362-ad66e295ad3d",
+    "userId": "user-krish-001",
+    "sessionId": "1a9d3b63-6a06-43e4-b267-b0ccb6cbb598",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:30:55.142Z"
+  },
+  {
+    "id": "a6e5edb3-d04d-48ba-8249-791e1bd73d93",
+    "userId": null,
+    "sessionId": "1a9d3b63-6a06-43e4-b267-b0ccb6cbb598",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:31:02.658Z"
+  },
+  {
+    "id": "0d2c6c78-68d9-46ba-932b-7b7b7e1021e5",
+    "userId": null,
+    "sessionId": "1a9d3b63-6a06-43e4-b267-b0ccb6cbb598",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:31:02.660Z"
+  },
+  {
+    "id": "382d03cf-136a-45d9-ab34-d3956b1b0700",
+    "userId": null,
+    "sessionId": "1a9d3b63-6a06-43e4-b267-b0ccb6cbb598",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:31:07.874Z"
+  },
+  {
+    "id": "578dfcdf-921d-4e00-9743-124a1f5e748d",
+    "userId": null,
+    "sessionId": "1a9d3b63-6a06-43e4-b267-b0ccb6cbb598",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:31:10.822Z"
+  },
+  {
+    "id": "73b9448a-a451-4fab-9586-b546b5620dcd",
+    "userId": "user-krish-001",
+    "sessionId": "5d14d8f9-9a90-43c2-a24a-bdbaa39a13e1",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:31:25.357Z"
+  },
+  {
+    "id": "a042e3b8-54d6-4342-948a-6f65a6c2daef",
+    "userId": "user-krish-001",
+    "sessionId": "cef05213-6bf3-43c0-a585-03aee1ce845d",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:31:56.949Z"
+  },
+  {
+    "id": "da85b650-d74a-4171-80bc-e7752ffdd721",
+    "userId": null,
+    "sessionId": "cef05213-6bf3-43c0-a585-03aee1ce845d",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:33:01.127Z"
+  },
+  {
+    "id": "7ce953df-da3a-4fc8-998b-bfe15b5536f1",
+    "userId": null,
+    "sessionId": "cef05213-6bf3-43c0-a585-03aee1ce845d",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:33:01.130Z"
+  },
+  {
+    "id": "6ba2e220-92fb-4681-8af6-ce75b11e8d38",
+    "userId": null,
+    "sessionId": "cef05213-6bf3-43c0-a585-03aee1ce845d",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:33:17.755Z"
+  },
+  {
+    "id": "4a578670-9ded-428a-b939-0944ca2efe47",
+    "userId": "user-krish-001",
+    "sessionId": "f8e71ad8-b8a3-4fd9-9f3e-97628391459d",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+      "publicDeviceId": "828-535-151"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:35:41.894Z"
+  },
+  {
+    "id": "fa71d787-786b-4d38-a1d6-f39bfeec8e82",
+    "userId": null,
+    "sessionId": "f8e71ad8-b8a3-4fd9-9f3e-97628391459d",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:35:49.502Z"
+  },
+  {
+    "id": "363f16f5-fd81-43fd-be98-b7ae3c177cb6",
+    "userId": null,
+    "sessionId": "f8e71ad8-b8a3-4fd9-9f3e-97628391459d",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:35:49.506Z"
+  },
+  {
+    "id": "c4e2cd80-4e91-433b-99f0-757ebbe1344f",
+    "userId": null,
+    "sessionId": "f8e71ad8-b8a3-4fd9-9f3e-97628391459d",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:35:58.718Z"
+  },
+  {
+    "id": "04c089a3-da13-473f-93ec-405d74c44732",
+    "userId": "user-krish-001",
+    "sessionId": null,
+    "action": "USER_LOGIN",
+    "metadata": {
+      "email": "krish@beamdesk.io"
+    },
+    "ipAddress": "::1",
+    "createdAt": "2026-09-26T15:36:16.533Z"
+  },
+  {
+    "id": "ef0221fa-caeb-474b-ab20-ba51ab0b76cb",
+    "userId": "user-demo-002",
+    "sessionId": "ddbb1326-e7d7-4e95-9cf7-4d7597beff01",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "37c78ede-0a70-49d1-b2d9-26ce7c6f6c9a",
+      "publicDeviceId": "234-440-694"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:40:31.884Z"
+  },
+  {
+    "id": "56256b81-bf14-4311-81d0-b92835130363",
+    "userId": null,
+    "sessionId": "ddbb1326-e7d7-4e95-9cf7-4d7597beff01",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:40:48.250Z"
+  },
+  {
+    "id": "3b16e443-c8e4-4149-b60f-efeab0b97a59",
+    "userId": null,
+    "sessionId": "ddbb1326-e7d7-4e95-9cf7-4d7597beff01",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:40:48.276Z"
+  },
+  {
+    "id": "d865cab1-aba6-455c-b7df-57f70a7451e7",
+    "userId": null,
+    "sessionId": "ddbb1326-e7d7-4e95-9cf7-4d7597beff01",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:43:37.103Z"
+  },
+  {
+    "id": "80f187f2-6aab-4385-898d-5df2f7dbadd2",
+    "userId": null,
+    "sessionId": "ddbb1326-e7d7-4e95-9cf7-4d7597beff01",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:43:42.187Z"
+  },
+  {
+    "id": "cf14f01f-5b24-4d43-8239-5f1d1647006e",
+    "userId": "user-demo-002",
+    "sessionId": "0594d0a4-de44-4a11-be4d-1cf6639221ff",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "37c78ede-0a70-49d1-b2d9-26ce7c6f6c9a",
+      "publicDeviceId": "234-440-694"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:52:30.631Z"
+  },
+  {
+    "id": "8222de07-3d73-4b52-9463-cd8f098e380d",
+    "userId": null,
+    "sessionId": "0594d0a4-de44-4a11-be4d-1cf6639221ff",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:52:43.870Z"
+  },
+  {
+    "id": "feac0e9d-e041-49d5-8ea3-931ae251d3e4",
+    "userId": null,
+    "sessionId": "0594d0a4-de44-4a11-be4d-1cf6639221ff",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:52:43.876Z"
+  },
+  {
+    "id": "0163cdf7-b02e-4bf3-9055-d5b506474244",
+    "userId": null,
+    "sessionId": "0594d0a4-de44-4a11-be4d-1cf6639221ff",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:53:36.220Z"
+  },
+  {
+    "id": "14b72eb9-e096-48aa-8340-bca432924a7f",
+    "userId": "user-demo-002",
+    "sessionId": "4c597a7c-1ffa-407f-9360-82968e0ada1a",
+    "action": "SESSION_REQUESTED",
+    "metadata": {
+      "targetDeviceId": "37c78ede-0a70-49d1-b2d9-26ce7c6f6c9a",
+      "publicDeviceId": "234-440-694"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:54:23.522Z"
+  },
+  {
+    "id": "662213a0-b3b3-42a2-9eb1-9ba15854cb32",
+    "userId": null,
+    "sessionId": "4c597a7c-1ffa-407f-9360-82968e0ada1a",
+    "action": "SESSION_ACCEPTED",
+    "metadata": {
+      "status": "CONNECTED"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:54:37.443Z"
+  },
+  {
+    "id": "2b90a1a7-317d-4db3-9531-e32aa1f6fae5",
+    "userId": null,
+    "sessionId": "4c597a7c-1ffa-407f-9360-82968e0ada1a",
+    "action": "PERMISSION_GRANTED",
+    "metadata": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:54:37.471Z"
+  },
+  {
+    "id": "4b0022fd-eb08-4626-a82a-e53ef87fa785",
+    "userId": null,
+    "sessionId": "4c597a7c-1ffa-407f-9360-82968e0ada1a",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:57:46.297Z"
+  },
+  {
+    "id": "726a0364-f589-4ce9-b561-7132187b0605",
+    "userId": null,
+    "sessionId": "4c597a7c-1ffa-407f-9360-82968e0ada1a",
+    "action": "SESSION_ENDED",
+    "metadata": {
+      "status": "COMPLETED",
+      "endReason": "User manually ended session"
+    },
+    "ipAddress": null,
+    "createdAt": "2026-09-26T15:57:51.806Z"
+  }
+]

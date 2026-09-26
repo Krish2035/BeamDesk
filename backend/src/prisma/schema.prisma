@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum DeviceStatus {
+  ONLINE
+  BUSY
+  OFFLINE
+}
+
+enum SessionStatus {
+  PENDING
+  CONNECTED
+  RECONNECTING
+  COMPLETED
+  REJECTED
+  FAILED
+  TIMED_OUT
+}
+
+enum AuditAction {
+  USER_REGISTERED
+  USER_LOGIN
+  DEVICE_REGISTERED
+  DEVICE_ONLINE
+  DEVICE_OFFLINE
+  SESSION_REQUESTED
+  SESSION_ACCEPTED
+  SESSION_REJECTED
+  SESSION_ENDED
+  PERMISSION_GRANTED
+  PERMISSION_REVOKED
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  devices      Device[]
+  refreshTokens RefreshToken[]
+  savedDevices SavedDevice[]
+  auditLogs    AuditLog[]
+  sessionsRequested Session[] @relation("RequesterSessions")
+
+  @@index([email])
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked   Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([token])
+}
+
+model Device {
+  id             String        @id @default(uuid())
+  userId         String
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  publicDeviceId String        @unique // e.g. "489 123 789"
+  name           String
+  platform       String        // "Windows", "macOS", "Linux", "Web"
+  status         DeviceStatus  @default(OFFLINE)
+  lastSeenAt     DateTime      @default(now())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  sessions       Session[]     @relation("TargetDeviceSessions")
+  savedByUsers   SavedDevice[]
+
+  @@index([publicDeviceId])
+  @@index([userId])
+  @@index([status])
+}
+
+model SavedDevice {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deviceId   String
+  device     Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  customName String?
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, deviceId])
+  @@index([userId])
+}
+
+model Session {
+  id             String               @id @default(uuid())
+  requesterId    String
+  requester      User                 @relation("RequesterSessions", fields: [requesterId], references: [id], onDelete: Cascade)
+  targetDeviceId String
+  targetDevice   Device               @relation("TargetDeviceSessions", fields: [targetDeviceId], references: [id], onDelete: Cascade)
+  status         SessionStatus        @default(PENDING)
+  startedAt      DateTime?
+  endedAt        DateTime?
+  endReason      String?              // "USER_DISCONNECTED", "PEER_DISCONNECTED", "TIMEOUT", "REJECTED"
+  createdAt      DateTime             @default(now())
+
+  participants   SessionParticipant[]
+  permissions    Permission[]
+  auditLogs      AuditLog[]
+
+  @@index([requesterId])
+  @@index([targetDeviceId])
+  @@index([status])
+}
+
+model SessionParticipant {
+  id        String   @id @default(uuid())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId    String
+  role      String   // "HOST" or "CLIENT"
+  joinedAt  DateTime @default(now())
+  leftAt    DateTime?
+
+  @@index([sessionId])
+  @@index([userId])
+}
+
+model Permission {
+  id             String   @id @default(uuid())
+  sessionId      String
+  session        Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  allowMouse     Boolean  @default(false)
+  allowKeyboard  Boolean  @default(false)
+  allowAudio     Boolean  @default(true)
+  allowClipboard Boolean  @default(false)
+  allowFileTransfer Boolean @default(false)
+  updatedAt      DateTime @updatedAt
+
+  @@unique([sessionId])
+}
+
+model AuditLog {
+  id        String      @id @default(uuid())
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  sessionId String?
+  session   Session?    @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  action    AuditAction
+  metadata  Json?
+  ipAddress String?
+  createdAt DateTime    @default(now())
+
+  @@index([userId])
+  @@index([sessionId])
+  @@index([action])
+  @@index([createdAt])
+}

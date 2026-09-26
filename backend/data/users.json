@@ -1,0 +1,42 @@
+[
+  {
+    "id": "user-krish-001",
+    "name": "Krish",
+    "email": "krish@beamdesk.io",
+    "passwordHash": "$2b$10$kZfHXx3J9NbMwu0Ez48IRewLsF0WzdxTAW8rBYQ0nCMdiDAbE3tM.",
+    "createdAt": "2026-09-26T09:50:15.713Z",
+    "updatedAt": "2026-09-26T09:50:15.713Z"
+  },
+  {
+    "id": "user-demo-002",
+    "name": "Demo User",
+    "email": "demo@beamdesk.io",
+    "passwordHash": "$2b$10$kZfHXx3J9NbMwu0Ez48IRewLsF0WzdxTAW8rBYQ0nCMdiDAbE3tM.",
+    "createdAt": "2026-09-26T09:50:15.713Z",
+    "updatedAt": "2026-09-26T09:50:15.713Z"
+  },
+  {
+    "id": "user-alex-003",
+    "name": "Alex Rivera",
+    "email": "alex@beamdesk.io",
+    "passwordHash": "$2b$10$kZfHXx3J9NbMwu0Ez48IRewLsF0WzdxTAW8rBYQ0nCMdiDAbE3tM.",
+    "createdAt": "2026-09-26T09:50:15.713Z",
+    "updatedAt": "2026-09-26T09:50:15.713Z"
+  },
+  {
+    "id": "c7b24b44-d326-4381-a384-8d4572eac70a",
+    "name": "New Test User",
+    "email": "testuser_1790416687050@beamdesk.io",
+    "passwordHash": "$2b$10$j087D9gcIWF4B4jjBnjyM..lQ6/QAacwWLzZ6bHPyk82lrMjPGs.i",
+    "createdAt": "2026-09-26T09:58:07.250Z",
+    "updatedAt": "2026-09-26T09:58:07.250Z"
+  },
+  {
+    "id": "1b3d97b4-d3ab-41bc-99b4-552031632ef0",
+    "name": "Test User",
+    "email": "tester@example.com",
+    "passwordHash": "$2b$10$8ft6FbsoMxwzKHV1Bf0ubuCGIdTECR3.u4t84ExLtx3p.wMzb2yK2",
+    "createdAt": "2026-09-26T14:49:15.008Z",
+    "updatedAt": "2026-09-26T14:49:15.008Z"
+  }
+]

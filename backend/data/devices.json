@@ -1,0 +1,123 @@
+[
+  {
+    "id": "dev-krish-01",
+    "userId": "user-krish-001",
+    "publicDeviceId": "482 913 741",
+    "name": "Krish Windows Laptop",
+    "platform": "windows",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T09:53:42.049Z",
+    "createdAt": "2026-09-26T09:53:42.049Z",
+    "updatedAt": "2026-09-26T09:53:42.049Z"
+  },
+  {
+    "id": "dev-krish-02",
+    "userId": "user-krish-001",
+    "publicDeviceId": "629 384 105",
+    "name": "Krish Android Phone",
+    "platform": "android",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T09:53:42.049Z",
+    "createdAt": "2026-09-26T09:53:42.049Z",
+    "updatedAt": "2026-09-26T09:53:42.049Z"
+  },
+  {
+    "id": "c916761b-59cd-4ee6-ab18-45c2c571aa91",
+    "userId": "user-krish-001",
+    "publicDeviceId": "737-830-526",
+    "name": "Krish Windows Laptop",
+    "platform": "Windows",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T09:57:06.685Z",
+    "createdAt": "2026-09-26T09:57:06.685Z",
+    "updatedAt": "2026-09-26T09:57:06.685Z"
+  },
+  {
+    "id": "7e5742e0-599e-4f51-8fde-a05035d036a7",
+    "userId": "user-krish-001",
+    "publicDeviceId": "499-602-726",
+    "name": "Windows Device",
+    "platform": "Windows",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T10:47:57.602Z",
+    "createdAt": "2026-09-26T10:01:16.392Z",
+    "updatedAt": "2026-09-26T10:47:57.602Z"
+  },
+  {
+    "id": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+    "userId": "user-demo-002",
+    "publicDeviceId": "116-636-420",
+    "name": "Linux Phone",
+    "platform": "Linux",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T10:06:32.730Z",
+    "createdAt": "2026-09-26T10:03:57.158Z",
+    "updatedAt": "2026-09-26T10:06:32.730Z"
+  },
+  {
+    "id": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+    "userId": "user-krish-001",
+    "publicDeviceId": "522-945-202",
+    "name": "Android Phone",
+    "platform": "Android",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T14:59:16.509Z",
+    "createdAt": "2026-09-26T10:06:17.239Z",
+    "updatedAt": "2026-09-26T14:59:16.509Z"
+  },
+  {
+    "id": "47c6574a-e661-4a03-b7e8-d8b9f271851e",
+    "userId": "user-krish-001",
+    "publicDeviceId": "559-365-611",
+    "name": "Linux Phone",
+    "platform": "Linux",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T11:33:24.076Z",
+    "createdAt": "2026-09-26T10:46:13.686Z",
+    "updatedAt": "2026-09-26T11:33:24.076Z"
+  },
+  {
+    "id": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "userId": "user-demo-002",
+    "publicDeviceId": "611-945-994",
+    "name": "Linux Phone",
+    "platform": "Linux",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T14:59:25.947Z",
+    "createdAt": "2026-09-26T11:33:44.273Z",
+    "updatedAt": "2026-09-26T14:59:25.947Z"
+  },
+  {
+    "id": "f1fc4788-c4e6-4d2b-9b81-ef25f27cec73",
+    "userId": "1b3d97b4-d3ab-41bc-99b4-552031632ef0",
+    "publicDeviceId": "486-426-659",
+    "name": "Windows Device",
+    "platform": "Windows",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T14:54:17.064Z",
+    "createdAt": "2026-09-26T14:49:15.129Z",
+    "updatedAt": "2026-09-26T14:54:17.064Z"
+  },
+  {
+    "id": "37c78ede-0a70-49d1-b2d9-26ce7c6f6c9a",
+    "userId": "user-krish-001",
+    "publicDeviceId": "234-440-694",
+    "name": "Windows Laptop",
+    "platform": "Windows",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T15:54:04.876Z",
+    "createdAt": "2026-09-26T15:20:59.567Z",
+    "updatedAt": "2026-09-26T15:54:04.876Z"
+  },
+  {
+    "id": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "userId": "user-demo-002",
+    "publicDeviceId": "828-535-151",
+    "name": "Linux Phone",
+    "platform": "Linux",
+    "status": "ONLINE",
+    "lastSeenAt": "2026-09-26T15:57:51.317Z",
+    "createdAt": "2026-09-26T15:24:23.893Z",
+    "updatedAt": "2026-09-26T15:57:51.317Z"
+  }
+]

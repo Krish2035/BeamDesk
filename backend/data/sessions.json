@@ -1,0 +1,699 @@
+[
+  {
+    "id": "4f0eff54-af0b-40c4-b37c-4312f85d284f",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+    "status": "REJECTED",
+    "startedAt": null,
+    "endedAt": "2026-09-26T10:04:30.466Z",
+    "endReason": "Rejected by host user",
+    "createdAt": "2026-09-26T10:04:14.776Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "f7b70d37-37dd-4f47-b881-1f97baefd673",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T10:04:52.581Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "2cd943e0-e2dd-4f5a-8b6a-4733b7dd553d",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T10:07:17.105Z",
+    "endedAt": "2026-09-26T10:07:39.832Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T10:06:54.243Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "88bd667f-16ee-4d22-b329-4f861fcb4793",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+    "status": "REJECTED",
+    "startedAt": null,
+    "endedAt": "2026-09-26T10:09:05.911Z",
+    "endReason": "Rejected by host user",
+    "createdAt": "2026-09-26T10:08:30.463Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "930ea224-3e1c-445a-a3a4-958ede6a71c0",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "6f74c518-5727-448f-a6d8-7ee08c47d81e",
+    "status": "REJECTED",
+    "startedAt": null,
+    "endedAt": "2026-09-26T10:11:30.885Z",
+    "endReason": "Rejected by host user",
+    "createdAt": "2026-09-26T10:11:26.804Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "a28492f7-14d2-4cc9-be99-0ad9d1166df7",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T10:11:59.419Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "5713123c-2b7b-49aa-a41d-88792842a63c",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "47c6574a-e661-4a03-b7e8-d8b9f271851e",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T11:05:49.804Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "7838bfdd-f96b-4dd0-b065-8b3d2db97d14",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T11:34:43.687Z",
+    "endedAt": "2026-09-26T11:35:20.703Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T11:34:40.450Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "ff8c39f4-5f41-489f-bc72-04b584e2633e",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "7e5742e0-599e-4f51-8fde-a05035d036a7",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T11:36:00.546Z",
+    "endedAt": "2026-09-26T11:40:09.616Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T11:35:42.883Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "215f4023-5212-4c73-8ccb-68573e5e877f",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T11:37:26.487Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "be727e09-290b-4522-a574-84d8630d3765",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T11:41:55.270Z",
+    "endedAt": "2026-09-26T11:42:50.811Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T11:41:47.808Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "43617259-02cb-427a-ab6e-a57305aff340",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "7e5742e0-599e-4f51-8fde-a05035d036a7",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T11:43:09.146Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "ea4e33b1-d980-4499-8a9a-a57228e3a870",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T11:59:07.993Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "93439b15-201a-4dbd-98dd-b3a907e2ddc0",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T12:00:23.152Z",
+    "endedAt": "2026-09-26T12:03:39.979Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T12:00:06.382Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "11febbd7-48cd-481c-a4e8-5653789b1a1b",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T12:11:58.139Z",
+    "endedAt": "2026-09-26T12:12:07.084Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T12:11:53.380Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "8977345e-1066-410b-9417-2ea4c9edc1c5",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T12:12:28.466Z",
+    "endedAt": "2026-09-26T12:13:13.486Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T12:12:22.326Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "f2637c56-0b8a-4dc7-9b87-23ab08dc7053",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T12:16:49.763Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "a3092bf8-6597-470d-b26e-a564faa1bc51",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T12:18:45.714Z",
+    "endedAt": "2026-09-26T12:19:05.354Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T12:18:42.801Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "1d284b9d-2b8a-4fc7-9c7e-933220a6c667",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T12:20:05.167Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "a86adec9-3faa-4a7c-9b81-ffddf1c782eb",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T12:21:27.589Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "6c67b1ee-8f9c-40c9-9fa5-705428ad0f92",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "REJECTED",
+    "startedAt": null,
+    "endedAt": "2026-09-26T12:21:53.220Z",
+    "endReason": "Rejected by host user",
+    "createdAt": "2026-09-26T12:21:51.986Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "bcb947e4-96e8-4a1d-b02d-b33e60e7af60",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T12:27:25.278Z",
+    "endedAt": "2026-09-26T12:28:35.711Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T12:27:22.266Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "e4628a1a-3c36-4262-90d1-42c506edc5a7",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T12:29:11.846Z",
+    "endedAt": "2026-09-26T12:29:59.460Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T12:28:59.396Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "644166ed-9b8a-4030-8ac6-1e17fecf55a8",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T14:22:13.457Z",
+    "endedAt": "2026-09-26T14:22:42.624Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T14:22:07.571Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "6959727f-e481-41e1-a746-87a009cb3885",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T14:22:58.642Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "78cb6605-7c49-44aa-b58c-97e9ea88867d",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T14:23:27.838Z",
+    "endedAt": "2026-09-26T14:35:33.730Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T14:23:22.686Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "75593448-97f5-4e61-94f2-e457901b7dac",
+    "requesterId": "1b3d97b4-d3ab-41bc-99b4-552031632ef0",
+    "targetDeviceId": "3baafce8-6f7b-405f-8c73-cb22a6591ad8",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T14:50:53.827Z",
+    "endedAt": "2026-09-26T14:52:38.915Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T14:50:48.310Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "c7a498db-a718-47b4-a383-c463faf4efea",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "f1fc4788-c4e6-4d2b-9b81-ef25f27cec73",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T14:53:03.430Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "bad78018-9aed-412a-9bc8-19b9dbfef954",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "f1fc4788-c4e6-4d2b-9b81-ef25f27cec73",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T14:53:45.909Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "17c3459b-2c5c-4e16-8f34-827214ff7cf6",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "fe3516d5-fa78-4e59-bad8-422c4be010f3",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T14:59:43.481Z",
+    "endedAt": "2026-09-26T15:04:10.367Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T14:59:36.802Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "3e3862e1-33da-49dc-a733-6c4f6da42318",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:25:17.976Z",
+    "endedAt": "2026-09-26T15:25:33.595Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:25:12.546Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "96c58c2b-8132-4ac3-ba7c-994ada886995",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T15:25:46.352Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "36c3fd8a-cd1d-4c38-9931-84b2a920a2a5",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:26:31.438Z",
+    "endedAt": "2026-09-26T15:27:01.018Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:26:26.225Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "defb77c1-ab0c-4d84-b02c-dc3bfd600f81",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:29:48.866Z",
+    "endedAt": "2026-09-26T15:30:16.322Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:29:39.918Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "1a9d3b63-6a06-43e4-b267-b0ccb6cbb598",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:31:02.657Z",
+    "endedAt": "2026-09-26T15:31:10.820Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:30:55.140Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "5d14d8f9-9a90-43c2-a24a-bdbaa39a13e1",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "status": "PENDING",
+    "startedAt": null,
+    "endedAt": null,
+    "endReason": null,
+    "createdAt": "2026-09-26T15:31:25.355Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": false,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "cef05213-6bf3-43c0-a585-03aee1ce845d",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:33:01.125Z",
+    "endedAt": "2026-09-26T15:33:17.754Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:31:56.947Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "f8e71ad8-b8a3-4fd9-9f3e-97628391459d",
+    "requesterId": "user-krish-001",
+    "targetDeviceId": "27cd614d-caef-4c82-bd11-473b6f664025",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:35:49.501Z",
+    "endedAt": "2026-09-26T15:35:58.716Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:35:41.892Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "ddbb1326-e7d7-4e95-9cf7-4d7597beff01",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "37c78ede-0a70-49d1-b2d9-26ce7c6f6c9a",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:40:48.246Z",
+    "endedAt": "2026-09-26T15:43:42.184Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:40:31.881Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "0594d0a4-de44-4a11-be4d-1cf6639221ff",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "37c78ede-0a70-49d1-b2d9-26ce7c6f6c9a",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:52:43.865Z",
+    "endedAt": "2026-09-26T15:53:36.217Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:52:30.629Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  },
+  {
+    "id": "4c597a7c-1ffa-407f-9360-82968e0ada1a",
+    "requesterId": "user-demo-002",
+    "targetDeviceId": "37c78ede-0a70-49d1-b2d9-26ce7c6f6c9a",
+    "status": "COMPLETED",
+    "startedAt": "2026-09-26T15:54:37.437Z",
+    "endedAt": "2026-09-26T15:57:51.803Z",
+    "endReason": "User manually ended session",
+    "createdAt": "2026-09-26T15:54:23.520Z",
+    "permissions": {
+      "allowMouse": true,
+      "allowKeyboard": true,
+      "allowAudio": true,
+      "allowClipboard": true,
+      "allowFileTransfer": false
+    }
+  }
+]
