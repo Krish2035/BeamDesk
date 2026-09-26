@@ -78,17 +78,93 @@ export class DeviceRepository {
       }
     }
 
-    return (
-      persistentDevices.find((d) => {
-        const dDigits = d.publicDeviceId.replace(/\D/g, '');
-        return (
-          (rawDigits.length > 0 && dDigits === rawDigits) ||
-          d.publicDeviceId === standardDash ||
-          d.publicDeviceId === standardSpace ||
-          d.publicDeviceId === publicDeviceId.trim()
-        );
-      }) || null
-    );
+    const found = persistentDevices.find((d) => {
+      const dDigits = d.publicDeviceId.replace(/\D/g, '');
+      return (
+        (rawDigits.length > 0 && dDigits === rawDigits) ||
+        d.publicDeviceId === standardDash ||
+        d.publicDeviceId === standardSpace ||
+        d.publicDeviceId === publicDeviceId.trim()
+      );
+    });
+    if (found) return found;
+
+    if (rawDigits.length === 9) {
+      return this.createOrGetAnonymousDevice(standardDash);
+    }
+
+    return null;
+  }
+
+  async createOrGetAnonymousDevice(
+    publicDeviceId: string,
+    name = 'Android Device',
+    platform = 'Android'
+  ): Promise<DeviceRecord> {
+    const rawDigits = publicDeviceId.replace(/\D/g, '');
+    const standardDash = normalizeDeviceId(publicDeviceId);
+
+    if (isDbConnected) {
+      try {
+        const existing = await prisma.device.findFirst({
+          where: {
+            OR: [
+              { publicDeviceId: standardDash },
+              { publicDeviceId: rawDigits },
+            ],
+          },
+        });
+        if (existing) return existing as DeviceRecord;
+      } catch {
+        // Fallback
+      }
+    }
+
+    const inMem = persistentDevices.find((d) => {
+      const dDigits = d.publicDeviceId.replace(/\D/g, '');
+      return dDigits === rawDigits || d.publicDeviceId === standardDash;
+    });
+    if (inMem) return inMem;
+
+    let targetUserId = 'user-krish-001';
+
+    if (isDbConnected) {
+      try {
+        let user = await prisma.user.findFirst();
+        if (user) {
+          targetUserId = user.id;
+        }
+
+        const created = await prisma.device.create({
+          data: {
+            userId: targetUserId,
+            name,
+            platform,
+            publicDeviceId: standardDash,
+            status: 'ONLINE',
+            lastSeenAt: new Date(),
+          },
+        });
+        return created as DeviceRecord;
+      } catch (err) {
+        // Fallback to local storage if DB error occurs
+      }
+    }
+
+    const newDevice: DeviceRecord = {
+      id: uuidv4(),
+      userId: targetUserId,
+      publicDeviceId: standardDash,
+      name,
+      platform,
+      status: 'ONLINE',
+      lastSeenAt: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    persistentDevices.push(newDevice);
+    writeJsonFile('devices.json', persistentDevices);
+    return newDevice;
   }
 
   async findById(id: string): Promise<DeviceRecord | null> {

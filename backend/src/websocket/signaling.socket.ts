@@ -3,6 +3,7 @@ import { SOCKET_EVENTS } from '../constants/index.js';
 import { redisService } from '../services/redis.service.js';
 import { sessionService } from '../services/session.service.js';
 import { deviceService } from '../services/device.service.js';
+import { deviceRepository } from '../repositories/device.repository.js';
 import { normalizeDeviceId } from '../utils/idGenerator.js';
 import { logger } from '../utils/logger.js';
 import { nativeInput } from '../utils/nativeInput.js';
@@ -11,6 +12,8 @@ import { adbInput } from '../utils/adbInput.js';
 interface RegisterDevicePayload {
   deviceId: string; // publicDeviceId e.g. 489-123-789
   token?: string;
+  name?: string;
+  platform?: string;
 }
 
 interface SessionRequestPayload {
@@ -78,6 +81,13 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
         await redisService.setDeviceOnline(normalizedId, socket.id);
         await redisService.setDeviceOnline(digits, socket.id);
         await redisService.setDeviceOnline(spaceId, socket.id);
+
+        // Auto-create/upsert the device in repository so lookup never 404s
+        await deviceRepository.createOrGetAnonymousDevice(
+          normalizedId,
+          payload.name || 'Android Companion Phone',
+          payload.platform || 'Android'
+        );
 
         logger.info(`Device registered online: ${normalizedId} / ${digits} (socket: ${socket.id})`);
         socket.emit(SOCKET_EVENTS.DEVICE_REGISTERED, {

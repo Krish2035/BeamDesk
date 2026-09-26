@@ -45,8 +45,9 @@ public class SignalingClient {
             IO.Options options = new IO.Options();
             options.reconnection = true;
             options.reconnectionAttempts = 999;
-            options.reconnectionDelay = 2000;
-            options.transports = new String[]{"websocket"};
+            options.reconnectionDelay = 1500;
+            options.timeout = 20000;
+            options.transports = new String[]{"websocket", "polling"};
 
             socket = IO.socket(URI.create(serverUrl), options);
 
@@ -57,6 +58,7 @@ public class SignalingClient {
 
             socket.on(Socket.EVENT_DISCONNECT, args -> {
                 Log.w(TAG, "Disconnected from BeamDesk Backend");
+                stopHeartbeat();
                 if (callback != null) {
                     mainHandler.post(() -> callback.onDisconnected());
                 }
@@ -126,13 +128,40 @@ public class SignalingClient {
         }
     }
 
+    private final Runnable heartbeatRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (socket != null && socket.connected()) {
+                try {
+                    JSONObject hb = new JSONObject();
+                    hb.put("deviceId", deviceCode);
+                    socket.emit("device:heartbeat", hb);
+                } catch (Exception ignored) {}
+                mainHandler.postDelayed(this, 20000);
+            }
+        }
+    };
+
+    private void startHeartbeat() {
+        stopHeartbeat();
+        mainHandler.postDelayed(heartbeatRunnable, 20000);
+    }
+
+    private void stopHeartbeat() {
+        mainHandler.removeCallbacks(heartbeatRunnable);
+    }
+
     private void registerDevice() {
         if (socket == null || !socket.connected()) return;
         try {
             JSONObject payload = new JSONObject();
             payload.put("deviceId", deviceCode);
+            payload.put("name", "Android Companion Phone");
+            payload.put("platform", "Android");
             socket.emit("device:register", payload);
             Log.i(TAG, "Device registered with code: " + deviceCode);
+
+            startHeartbeat();
 
             if (callback != null) {
                 mainHandler.post(() -> callback.onConnected(deviceCode));

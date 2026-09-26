@@ -51,11 +51,15 @@ export class DeviceService {
     status: 'ONLINE' | 'BUSY' | 'OFFLINE';
     isOnline: boolean;
   } | null> {
+    const rawDigits = publicDeviceId.replace(/\D/g, '');
     const normalized = normalizeDeviceId(publicDeviceId);
     const device = await deviceRepository.findByPublicId(normalized);
     if (!device) return null;
 
-    const isOnline = await redisService.isDeviceOnline(device.publicDeviceId);
+    const isOnline =
+      (await redisService.isDeviceOnline(device.publicDeviceId)) ||
+      (rawDigits.length > 0 ? await redisService.isDeviceOnline(rawDigits) : false) ||
+      (await redisService.isDeviceOnline(normalized));
 
     return {
       id: device.id,
@@ -63,7 +67,7 @@ export class DeviceService {
       name: device.name,
       platform: device.platform,
       status: isOnline ? 'ONLINE' : device.status === 'BUSY' ? 'BUSY' : 'OFFLINE',
-      isOnline,
+      isOnline: !!isOnline,
     };
   }
 

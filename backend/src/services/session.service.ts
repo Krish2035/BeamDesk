@@ -18,10 +18,11 @@ export class SessionService {
       throw new AppError(`Device with ID ${normalized} not found.`, 404);
     }
 
-    const isOnline = await redisService.isDeviceOnline(targetDevice.publicDeviceId);
-    if (!isOnline && targetDevice.status === 'OFFLINE') {
-      throw new AppError(`Device ${normalized} is currently offline.`, 400);
-    }
+    const rawDigits = targetDevice.publicDeviceId.replace(/\D/g, '');
+    const isOnline =
+      (await redisService.isDeviceOnline(targetDevice.publicDeviceId)) ||
+      (rawDigits.length > 0 ? await redisService.isDeviceOnline(rawDigits) : false) ||
+      (await redisService.isDeviceOnline(normalized));
 
     const session = await sessionRepository.create({
       requesterId,

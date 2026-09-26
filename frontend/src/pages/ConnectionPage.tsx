@@ -89,12 +89,6 @@ export const ConnectionPage: React.FC = () => {
       const device = await apiClient<any>(`/devices/lookup/${encodeURIComponent(normalized)}`);
       setTargetDeviceInfo(device);
 
-      if (!device.isOnline && device.status === 'OFFLINE') {
-        setStage('ERROR');
-        setErrorMessage(`Device ${formatDeviceId(normalized)} is currently OFFLINE.`);
-        return;
-      }
-
       // Step 2: Request session via Socket.IO
       setStage('WAITING_APPROVAL');
       socketService.requestSession(normalized, {
