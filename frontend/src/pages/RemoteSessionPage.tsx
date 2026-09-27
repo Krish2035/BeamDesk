@@ -64,8 +64,30 @@ export const RemoteSessionPage: React.FC = () => {
   const [adbConnected, setAdbConnected] = useState(false);
   const [useAdbMirror, setUseAdbMirror] = useState(false);
   const [mobileFrame, setMobileFrame] = useState<string | null>(null);
+  const [isAgentConnected, setIsAgentConnected] = useState(false);
   // Ref to track mobileFrame in poll timer without stale closures
   const mobileFrameRef = useRef<string | null>(null);
+
+  // Poll for BeamDesk Windows OS input agent on host laptop
+  useEffect(() => {
+    if (role !== 'HOST') return;
+    let isMounted = true;
+    const checkAgent = async () => {
+      try {
+        const res = await fetch('http://127.0.0.1:49152/status');
+        const data = await res.json();
+        if (isMounted) setIsAgentConnected(data.status === 'ok' && data.isReady);
+      } catch {
+        if (isMounted) setIsAgentConnected(false);
+      }
+    };
+    checkAgent();
+    const interval = setInterval(checkAgent, 2500);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [role]);
 
   // Poll for connected physical Android device via ADB
   useEffect(() => {
@@ -709,6 +731,45 @@ export const RemoteSessionPage: React.FC = () => {
               <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/80">
                 <div className="text-[10px] text-slate-400 uppercase font-semibold">Stream</div>
                 <div className="text-sm sm:text-base font-mono font-bold text-emerald-400 mt-0.5">{metrics.frameRate || 60} fps</div>
+              </div>
+            </div>
+
+            {/* Windows OS Agent Status Banner */}
+            <div
+              className={`p-3.5 rounded-2xl border text-xs text-left flex items-start space-x-3 transition-all ${
+                isAgentConnected
+                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                  : 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+              }`}
+            >
+              <div className="mt-1 shrink-0">
+                {isAgentConnected ? (
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                ) : (
+                  <span className="inline-block w-2.5 h-2.5 rounded-full bg-amber-400" />
+                )}
+              </div>
+              <div className="space-y-1">
+                <div className="font-bold flex items-center space-x-2">
+                  <span>{isAgentConnected ? 'Full Windows OS Control Active' : 'Browser-Level Remote Control'}</span>
+                  {isAgentConnected ? (
+                    <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono font-semibold">
+                      Whole Laptop Ready
+                    </span>
+                  ) : (
+                    <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full font-mono font-semibold">
+                      Browser Only
+                    </span>
+                  )}
+                </div>
+                <p className="text-[11px] opacity-90 leading-relaxed">
+                  {isAgentConnected
+                    ? 'Remote phone can click anywhere on your laptop: Start Menu, Taskbar, Desktop icons, and all open apps!'
+                    : 'To click outside Chrome (Start Menu, Taskbar, Desktop), run start-agent.bat or: npm run agent on this laptop.'}
+                </p>
               </div>
             </div>
 

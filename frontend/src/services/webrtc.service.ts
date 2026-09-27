@@ -160,10 +160,24 @@ class WebRTCService {
       const y = typeof data.y === 'number' ? data.y : 0.5;
       const button = typeof data.button === 'number' ? data.button : 0;
 
+      // Forward to BeamDesk Windows Agent on localhost to click physical Windows OS anywhere
+      fetch('http://127.0.0.1:49152/input', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, x, y, button, isDrag: data.isDrag, delta: data.delta }),
+      }).catch(() => {});
+
       // Update interactive mobile OS simulation
       mobileOS.handlePointer(action, x, y, button);
       window.dispatchEvent(new CustomEvent('beamdesk:remote-mouse', { detail: data }));
     } else if (type === 'control:keyboard') {
+      // Forward keystroke to BeamDesk Windows Agent
+      fetch('http://127.0.0.1:49152/input', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'key', key: data.key, code: data.code }),
+      }).catch(() => {});
+
       mobileOS.handleKey(data.key, data.code, data);
       window.dispatchEvent(new CustomEvent('beamdesk:remote-keyboard', { detail: data }));
     } else if (type === 'control:mobile-nav') {
