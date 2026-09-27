@@ -224,10 +224,12 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
         }
 
         // Notify all peers in session room
+        const isNativeAppHost = payload.isNativeAppHost === true;
         io.to(`session:${payload.sessionId}`).emit(SOCKET_EVENTS.SESSION_ACCEPTED, {
           sessionId: payload.sessionId,
           permissions: payload.approvedPermissions,
           isDesktopHost,
+          isNativeAppHost,
         });
       } catch (err: any) {
         logger.error('Error accepting session:', err);

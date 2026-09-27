@@ -76,6 +76,7 @@ public class SignalingClient {
                         JSONObject acceptPayload = new JSONObject();
                         acceptPayload.put("sessionId", currentSessionId);
                         acceptPayload.put("isDesktopHost", false);
+                        acceptPayload.put("isNativeAppHost", true);
                         JSONObject perms = new JSONObject();
                         perms.put("allowMouse", true);
                         perms.put("allowKeyboard", true);
@@ -232,6 +233,7 @@ public class SignalingClient {
             JSONObject payload = new JSONObject();
             payload.put("sessionId", sessionId);
             payload.put("isDesktopHost", false);
+            payload.put("isNativeAppHost", true);
 
             JSONObject perms = new JSONObject();
             perms.put("allowMouse", true);

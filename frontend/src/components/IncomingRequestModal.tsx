@@ -60,7 +60,7 @@ export const IncomingRequestModal: React.FC = () => {
 
       setPermissions(permissions);
       setSession(incomingRequest.sessionId, 'HOST', incomingRequest.targetDeviceId);
-      const isDesktopHost = deviceType === 'desktop' && !('ontouchstart' in window);
+      const isDesktopHost = deviceType === 'desktop';
       socketService.acceptSession(incomingRequest.sessionId, permissions, isDesktopHost);
 
       // 4. Close modal and open session viewer

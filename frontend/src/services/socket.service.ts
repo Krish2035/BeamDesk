@@ -153,6 +153,7 @@ class SocketService {
       sessionId,
       approvedPermissions,
       isDesktopHost,
+      isNativeAppHost: false, // Web browser hosts always support WebRTC
     });
   }
 

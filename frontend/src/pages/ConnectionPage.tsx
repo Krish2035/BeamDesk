@@ -47,12 +47,12 @@ export const ConnectionPage: React.FC = () => {
       setStage('NEGOTIATING');
       setSession(payload.sessionId, 'CLIENT', targetId);
 
-      // Mobile companion devices (Android app) stream via socket stream:frame events.
-      // They do NOT support WebRTC — skip WebRTC negotiation entirely and go straight to session.
-      const isMobileHost = payload.isDesktopHost === false;
+      // Only native Android companion APKs stream exclusively via socket frames without WebRTC.
+      // All web browsers (desktops, laptops, tablets, and phones) use WebRTC media sharing!
+      const isNativeApp = payload.isNativeAppHost === true;
 
-      if (isMobileHost) {
-        console.log('Mobile host detected — skipping WebRTC, using socket frame stream.');
+      if (isNativeApp) {
+        console.log('Native Android companion app detected — using socket frame stream.');
         setStage('CONNECTED');
         navigate(`/session/${payload.sessionId}`);
         return;
