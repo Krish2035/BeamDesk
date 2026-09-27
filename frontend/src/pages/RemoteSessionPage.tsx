@@ -112,8 +112,17 @@ export const RemoteSessionPage: React.FC = () => {
     const socket = socketService.getSocket();
     if (!socket) return;
 
-    // Explicitly join session room to receive live stream frames
-    socket.emit('session:join', { sessionId });
+    const joinAndRequest = () => {
+      socket.emit('session:join', { sessionId });
+      socket.emit('stream:request_frame', { sessionId });
+    };
+
+    if (socket.connected) {
+      joinAndRequest();
+    } else {
+      socket.once('connect', joinAndRequest);
+    }
+    socket.on('reconnect', joinAndRequest);
 
     const handleFrame = (data: { sessionId: string; frame: string }) => {
       if (data && data.sessionId === sessionId && data.frame) {
@@ -124,10 +133,19 @@ export const RemoteSessionPage: React.FC = () => {
 
     socket.on('stream:frame', handleFrame);
 
+    // Periodic ping to host for frame if stream has not started yet
+    const pollTimer = setInterval(() => {
+      if (!remoteStream && !mobileFrame && socket.connected) {
+        socket.emit('stream:request_frame', { sessionId });
+      }
+    }, 2500);
+
     return () => {
+      clearInterval(pollTimer);
       socket.off('stream:frame', handleFrame);
+      socket.off('reconnect', joinAndRequest);
     };
-  }, [sessionId, role]);
+  }, [sessionId, role, remoteStream, mobileFrame]);
 
   const formatTimer = (totalSec: number) => {
     const mins = Math.floor(totalSec / 60);
@@ -862,6 +880,21 @@ export const RemoteSessionPage: React.FC = () => {
               <p className="text-xs text-slate-400 max-w-sm">
                 Negotiating low-latency display stream. Ensure target device accepts connection.
               </p>
+            </div>
+            <div className="pt-2 flex items-center space-x-3">
+              <button
+                onClick={() => {
+                  const socket = socketService.getSocket();
+                  if (socket && sessionId) {
+                    socket.emit('session:join', { sessionId });
+                    socket.emit('stream:request_frame', { sessionId });
+                  }
+                }}
+                className="px-4 py-2 bg-brand-600 hover:bg-brand-500 active:scale-95 text-white rounded-xl text-xs font-semibold shadow-md shadow-brand-600/30 flex items-center space-x-1.5 transition-all"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span>Refresh Stream Request</span>
+              </button>
             </div>
           </div>
         )}

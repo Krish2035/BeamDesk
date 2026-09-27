@@ -134,6 +134,15 @@ public class SignalingClient {
                 }
             });
 
+            // Immediate frame refresh requested by viewer
+            socket.on("stream:request_frame", args -> {
+                Log.i(TAG, "Viewer requested immediate screen frame");
+                ScreenCaptureService service = ScreenCaptureService.getInstance();
+                if (service != null) {
+                    service.sendCurrentFrameNow();
+                }
+            });
+
             socket.connect();
         } catch (Exception e) {
             Log.e(TAG, "Error initializing socket connection", e);
@@ -203,6 +212,13 @@ public class SignalingClient {
 
             socket.emit("session:accept", payload);
             Log.i(TAG, "Session accepted: " + sessionId);
+
+            // Immediately attach sessionId to ScreenCaptureService and push frame
+            ScreenCaptureService service = ScreenCaptureService.getInstance();
+            if (service != null) {
+                service.setSessionId(sessionId);
+                service.sendCurrentFrameNow();
+            }
         } catch (Exception e) {
             Log.e(TAG, "Error sending session:accept", e);
         }

@@ -1,9 +1,11 @@
 package io.beamdesk.app;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,11 +16,14 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements SignalingClient.SignalingCallback {
     private static final int REQUEST_SCREEN_CAPTURE = 1001;
+    private static final int REQUEST_PERMISSIONS = 1002;
     private static final String PREF_NAME = "beamdesk_prefs";
     private static final String KEY_DEVICE_CODE = "device_code";
 
@@ -46,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
         deviceCode = getOrCreateDeviceCode();
         tvDeviceCode.setText(formatCode(deviceCode));
 
+        // Check Notification Permission on Android 13+
+        checkNotificationPermission();
+
         // Connect signaling client to Render backend
         SignalingClient.getInstance().setCallback(this);
         SignalingClient.getInstance().connect("https://beamdesk-backend.onrender.com", deviceCode);
@@ -58,13 +66,30 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
         });
 
         // Start screen cast button
-        btnStartCast.setOnClickListener(v -> requestScreenCapture());
+        btnStartCast.setOnClickListener(v -> {
+            if (ScreenCaptureService.isServiceRunning()) {
+                Toast.makeText(this, "Screen sharing is active and ready for remote laptop connection!", Toast.LENGTH_SHORT).show();
+            } else {
+                requestScreenCapture();
+            }
+        });
+    }
+
+    private void checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_PERMISSIONS);
+            }
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         updateAccessibilityState();
+        updateScreenCastState();
     }
 
     private void updateAccessibilityState() {
@@ -74,6 +99,16 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
         } else {
             btnAccessibility.setText("Enable Remote Touch (Accessibility)");
             btnAccessibility.setEnabled(true);
+        }
+    }
+
+    private void updateScreenCastState() {
+        if (ScreenCaptureService.isServiceRunning()) {
+            btnStartCast.setText("✓ Screen Sharing Active");
+            btnStartCast.setBackgroundColor(getResources().getColor(R.color.status_green));
+        } else {
+            btnStartCast.setText("Allow Remote Screen Sharing");
+            btnStartCast.setBackgroundColor(getResources().getColor(R.color.primary_blue));
         }
     }
 
@@ -101,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
                 startService(serviceIntent);
             }
 
-            btnStartCast.setText("Screen Sharing Active");
+            btnStartCast.setText("✓ Screen Sharing Active");
             btnStartCast.setBackgroundColor(getResources().getColor(R.color.status_green));
 
             if (pendingSessionId != null) {
@@ -140,15 +175,37 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
     public void onSessionRequested(String sessionId, String requesterName) {
         this.pendingSessionId = sessionId;
 
-        new AlertDialog.Builder(this)
-                .setTitle("Incoming Remote Connection")
-                .setMessage("Laptop '" + requesterName + "' is requesting remote access to view and control this phone.\n\nAllow connection?")
-                .setPositiveButton("Accept & Share", (dialog, which) -> requestScreenCapture())
-                .setNegativeButton("Decline", (dialog, which) -> {
-                    pendingSessionId = null;
-                })
-                .setCancelable(false)
-                .show();
+        if (ScreenCaptureService.isServiceRunning()) {
+            // Screen sharing is already running; accept immediately upon user approval
+            new AlertDialog.Builder(this)
+                    .setTitle("Incoming Remote Connection")
+                    .setMessage("Laptop '" + requesterName + "' is requesting remote access to view and control this phone.\n\nAllow connection?")
+                    .setPositiveButton("Accept & Connect", (dialog, which) -> {
+                        SignalingClient.getInstance().acceptSession(sessionId);
+                        if (ScreenCaptureService.getInstance() != null) {
+                            ScreenCaptureService.getInstance().setSessionId(sessionId);
+                            ScreenCaptureService.getInstance().sendCurrentFrameNow();
+                        }
+                        Toast.makeText(this, "Connected! Streaming screen to laptop.", Toast.LENGTH_SHORT).show();
+                        pendingSessionId = null;
+                    })
+                    .setNegativeButton("Decline", (dialog, which) -> {
+                        pendingSessionId = null;
+                    })
+                    .setCancelable(false)
+                    .show();
+        } else {
+            // Need to ask user for MediaProjection permission first
+            new AlertDialog.Builder(this)
+                    .setTitle("Incoming Remote Connection")
+                    .setMessage("Laptop '" + requesterName + "' is requesting remote access to view and control this phone.\n\nAllow connection?")
+                    .setPositiveButton("Accept & Share", (dialog, which) -> requestScreenCapture())
+                    .setNegativeButton("Decline", (dialog, which) -> {
+                        pendingSessionId = null;
+                    })
+                    .setCancelable(false)
+                    .show();
+        }
     }
 
     @Override

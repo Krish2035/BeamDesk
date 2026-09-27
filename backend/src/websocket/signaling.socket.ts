@@ -59,6 +59,7 @@ interface ChatPayload {
 }
 
 const sessionHosts = new Map<string, { socketId: string; isDesktopHost: boolean }>();
+const sessionFrames = new Map<string, string>();
 
 export const setupSignalingSocket = (io: SocketIOServer) => {
   io.on('connection', (socket: Socket) => {
@@ -259,12 +260,33 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
       if (data?.sessionId) {
         socket.join(`session:${data.sessionId}`);
         logger.info(`Socket ${socket.id} joined session room: session:${data.sessionId}`);
+
+        // Immediately send cached frame to joining viewer if available
+        const cached = sessionFrames.get(data.sessionId);
+        if (cached) {
+          socket.emit('stream:frame', { sessionId: data.sessionId, frame: cached });
+        }
+
+        // Broadcast to mobile host in room to send a fresh frame immediately
+        socket.to(`session:${data.sessionId}`).emit('stream:request_frame', { sessionId: data.sessionId });
+      }
+    });
+
+    // Explicit request for a fresh screen frame
+    socket.on('stream:request_frame', (data: { sessionId: string }) => {
+      if (data?.sessionId) {
+        const cached = sessionFrames.get(data.sessionId);
+        if (cached) {
+          socket.emit('stream:frame', { sessionId: data.sessionId, frame: cached });
+        }
+        socket.to(`session:${data.sessionId}`).emit('stream:request_frame', data);
       }
     });
 
     // Live mobile screen frame streaming (from companion Android app)
     socket.on('stream:frame', (data: { sessionId: string; frame: string }) => {
       if (data?.sessionId && data?.frame) {
+        sessionFrames.set(data.sessionId, data.frame);
         socket.to(`session:${data.sessionId}`).emit('stream:frame', data);
       }
     });
@@ -303,6 +325,7 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
       try {
         logger.info(`Ending session: ${data.sessionId}`);
         sessionHosts.delete(data.sessionId);
+        sessionFrames.delete(data.sessionId);
         await sessionService.updateSessionStatus(data.sessionId, 'COMPLETED', data.reason || 'USER_DISCONNECTED');
 
         io.to(`session:${data.sessionId}`).emit(SOCKET_EVENTS.SESSION_ENDED, {
