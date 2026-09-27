@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ServiceInfo;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
@@ -28,6 +29,7 @@ import androidx.core.app.NotificationCompat;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public class ScreenCaptureService extends Service {
     private static final String TAG = "BeamDeskScreenService";
@@ -44,6 +46,13 @@ public class ScreenCaptureService extends Service {
     private String sessionId;
     private long lastFrameTime = 0;
     private volatile String latestBase64Frame = null;
+
+    // Zero-allocation reusable buffers to prevent OutOfMemoryError and GC pauses
+    private Bitmap reusablePaddedBitmap = null;
+    private Bitmap reusableCleanBitmap = null;
+    private Canvas reusableCanvas = null;
+    private final ByteArrayOutputStream reusableBaos = new ByteArrayOutputStream(64 * 1024);
+    private byte[] reusableCopyBuffer = null;
 
     public static ScreenCaptureService getInstance() {
         return instance;
@@ -75,17 +84,26 @@ public class ScreenCaptureService extends Service {
             Intent data = intent.getParcelableExtra("data");
 
             if (resultCode != -1 && data != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    startForeground(NOTIFICATION_ID, buildNotification(), ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION);
-                } else {
-                    startForeground(NOTIFICATION_ID, buildNotification());
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        startForeground(NOTIFICATION_ID, buildNotification(), ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION);
+                    } else {
+                        startForeground(NOTIFICATION_ID, buildNotification());
+                    }
+                    startCapture(resultCode, data);
+                } catch (Throwable t) {
+                    Log.e(TAG, "Fatal error promoting service to foreground", t);
+                    stopSelf();
                 }
-                startCapture(resultCode, data);
             } else if (latestBase64Frame != null && sessionId != null) {
                 sendCurrentFrameNow();
+            } else if (mediaProjection == null) {
+                stopSelf();
             }
+        } else if (mediaProjection == null) {
+            stopSelf();
         }
-        return START_STICKY;
+        return START_NOT_STICKY; // MediaProjection token is single-use; never restart without intent
     }
 
     private final Runnable frameHeartbeatRunnable = new Runnable() {
@@ -100,7 +118,7 @@ public class ScreenCaptureService extends Service {
                 Log.e(TAG, "Error in frame heartbeat", t);
             }
             if (backgroundHandler != null) {
-                backgroundHandler.postDelayed(this, 300); // 3+ FPS idle keepalive for static screens
+                backgroundHandler.postDelayed(this, 1000); // 1 FPS idle keepalive for static screens
             }
         }
     };
@@ -180,8 +198,8 @@ public class ScreenCaptureService extends Service {
                 int screenHeight = metrics.heightPixels;
                 int density = metrics.densityDpi;
 
-                final int captureWidth = 540;
-                final int rawHeight = (int) (540.0 * screenHeight / screenWidth);
+                final int captureWidth = 480;
+                final int rawHeight = (int) (480.0 * screenHeight / screenWidth);
                 final int captureHeight = (rawHeight / 2) * 2; // ensure even number
 
                 imageReader = ImageReader.newInstance(captureWidth, captureHeight, PixelFormat.RGBA_8888, 3);
@@ -189,8 +207,8 @@ public class ScreenCaptureService extends Service {
                 // Register listener BEFORE createVirtualDisplay so initial frame is never dropped
                 imageReader.setOnImageAvailableListener(reader -> {
                     long now = System.currentTimeMillis();
-                    // Max 22 FPS to guarantee ultra low-latency without congestion
-                    if (now - lastFrameTime < 45) {
+                    // 10 FPS maximum: optimal balance of smooth fluidity and zero network/heap congestion
+                    if (now - lastFrameTime < 100) {
                         Image img = reader.acquireLatestImage();
                         if (img != null) img.close();
                         return;
@@ -198,9 +216,6 @@ public class ScreenCaptureService extends Service {
                     lastFrameTime = now;
 
                     Image image = null;
-                    Bitmap bitmap = null;
-                    Bitmap cleanBitmap = null;
-                    ByteArrayOutputStream baos = null;
                     try {
                         image = reader.acquireLatestImage();
                         if (image == null) return;
@@ -209,59 +224,68 @@ public class ScreenCaptureService extends Service {
                         if (planes == null || planes.length == 0) return;
 
                         ByteBuffer buffer = planes[0].getBuffer();
-                        buffer.rewind(); // Required to prevent buffer position mismatches
+                        buffer.rewind();
 
                         int pixelStride = planes[0].getPixelStride();
                         int rowStride = planes[0].getRowStride();
                         int rowPadding = rowStride - pixelStride * captureWidth;
                         int paddedWidth = captureWidth + (rowPadding / pixelStride);
 
-                        bitmap = Bitmap.createBitmap(
-                                paddedWidth,
-                                captureHeight,
-                                Bitmap.Config.ARGB_8888
-                        );
-
-                        int requiredSize = bitmap.getByteCount();
-                        if (buffer.remaining() >= requiredSize) {
-                            bitmap.copyPixelsFromBuffer(buffer);
-                        } else {
-                            // On some hardware, the final row excludes padding bytes.
-                            // Buffer Underflow Exception is prevented by filling an allocated buffer.
-                            ByteBuffer fullBuffer = ByteBuffer.allocate(requiredSize);
-                            fullBuffer.put(buffer);
-                            fullBuffer.rewind();
-                            bitmap.copyPixelsFromBuffer(fullBuffer);
+                        // Reusable Bitmap allocation (allocated once, never recreated per frame)
+                        if (reusablePaddedBitmap == null || reusablePaddedBitmap.getWidth() != paddedWidth || reusablePaddedBitmap.getHeight() != captureHeight) {
+                            if (reusablePaddedBitmap != null) reusablePaddedBitmap.recycle();
+                            reusablePaddedBitmap = Bitmap.createBitmap(paddedWidth, captureHeight, Bitmap.Config.ARGB_8888);
                         }
 
-                        cleanBitmap = (rowPadding == 0)
-                                ? bitmap
-                                : Bitmap.createBitmap(bitmap, 0, 0, captureWidth, captureHeight);
+                        int requiredSize = reusablePaddedBitmap.getByteCount();
+                        if (buffer.remaining() >= requiredSize) {
+                            reusablePaddedBitmap.copyPixelsFromBuffer(buffer);
+                        } else {
+                            // On some hardware, the final row excludes padding bytes.
+                            // Buffer Underflow Exception is prevented by filling a reusable byte buffer.
+                            if (reusableCopyBuffer == null || reusableCopyBuffer.length != requiredSize) {
+                                reusableCopyBuffer = new byte[requiredSize];
+                            }
+                            int available = buffer.remaining();
+                            buffer.get(reusableCopyBuffer, 0, available);
+                            Arrays.fill(reusableCopyBuffer, available, requiredSize, (byte) 0);
+                            ByteBuffer fullBuffer = ByteBuffer.wrap(reusableCopyBuffer);
+                            reusablePaddedBitmap.copyPixelsFromBuffer(fullBuffer);
+                        }
 
-                        baos = new ByteArrayOutputStream();
-                        cleanBitmap.compress(Bitmap.CompressFormat.JPEG, 65, baos);
-                        byte[] jpegBytes = baos.toByteArray();
-                        String base64 = Base64.encodeToString(jpegBytes, Base64.NO_WRAP);
-                        latestBase64Frame = base64;
+                        Bitmap targetBitmap;
+                        if (rowPadding == 0) {
+                            targetBitmap = reusablePaddedBitmap;
+                        } else {
+                            if (reusableCleanBitmap == null || reusableCleanBitmap.getWidth() != captureWidth || reusableCleanBitmap.getHeight() != captureHeight) {
+                                if (reusableCleanBitmap != null) reusableCleanBitmap.recycle();
+                                reusableCleanBitmap = Bitmap.createBitmap(captureWidth, captureHeight, Bitmap.Config.ARGB_8888);
+                                reusableCanvas = new Canvas(reusableCleanBitmap);
+                            }
+                            if (reusableCanvas != null) {
+                                reusableCanvas.drawBitmap(reusablePaddedBitmap, 0, 0, null);
+                            }
+                            targetBitmap = reusableCleanBitmap;
+                        }
 
-                        String targetSid = sessionId != null ? sessionId : SignalingClient.getInstance().getCurrentSessionId();
-                        if (targetSid != null) {
-                            SignalingClient.getInstance().sendFrame(targetSid, base64);
+                        // Reusable output stream prevents byte array churn
+                        synchronized (reusableBaos) {
+                            reusableBaos.reset();
+                            targetBitmap.compress(Bitmap.CompressFormat.JPEG, 50, reusableBaos);
+                            byte[] jpegBytes = reusableBaos.toByteArray();
+                            String base64 = Base64.encodeToString(jpegBytes, Base64.NO_WRAP);
+                            latestBase64Frame = base64;
+
+                            String targetSid = sessionId != null ? sessionId : SignalingClient.getInstance().getCurrentSessionId();
+                            if (targetSid != null) {
+                                SignalingClient.getInstance().sendFrame(targetSid, base64);
+                            }
                         }
                     } catch (Throwable t) {
                         Log.e(TAG, "Error encoding screen frame", t);
                     } finally {
                         if (image != null) {
                             image.close();
-                        }
-                        if (bitmap != null && bitmap != cleanBitmap) {
-                            bitmap.recycle();
-                        }
-                        if (cleanBitmap != null) {
-                            cleanBitmap.recycle();
-                        }
-                        if (baos != null) {
-                            try { baos.close(); } catch (Exception ignored) {}
                         }
                     }
                 }, backgroundHandler);
@@ -278,7 +302,7 @@ public class ScreenCaptureService extends Service {
                 );
 
                 // Start idle keepalive sender for static screens
-                backgroundHandler.postDelayed(frameHeartbeatRunnable, 500);
+                backgroundHandler.postDelayed(frameHeartbeatRunnable, 1000);
 
                 // Trigger immediate burst transmission to any waiting session viewer
                 String initialSid = sessionId != null ? sessionId : SignalingClient.getInstance().getCurrentSessionId();
@@ -316,9 +340,10 @@ public class ScreenCaptureService extends Service {
         return new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("BeamDesk Remote Session Active")
                 .setContentText("Sharing real phone screen and touch controls with laptop")
-                .setSmallIcon(android.R.drawable.ic_menu_share)
+                .setSmallIcon(R.drawable.ic_beamdesk)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
     }
 
@@ -341,11 +366,21 @@ public class ScreenCaptureService extends Service {
             mediaProjection.stop();
             mediaProjection = null;
         }
+        if (reusablePaddedBitmap != null) {
+            reusablePaddedBitmap.recycle();
+            reusablePaddedBitmap = null;
+        }
+        if (reusableCleanBitmap != null) {
+            reusableCleanBitmap.recycle();
+            reusableCleanBitmap = null;
+        }
+        reusableCanvas = null;
+        reusableCopyBuffer = null;
         if (backgroundThread != null) {
             backgroundThread.quitSafely();
             backgroundThread = null;
         }
-        Log.i(TAG, "ScreenCaptureService destroyed");
+        Log.i(TAG, "ScreenCaptureService destroyed cleanly");
     }
 
     @Override

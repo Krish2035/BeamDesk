@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
+            Log.e("BeamDeskCrash", "Uncaught exception in thread " + thread.getName(), throwable);
+        });
         setContentView(R.layout.activity_main);
 
         tvDeviceCode = findViewById(R.id.tvDeviceCode);
