@@ -140,7 +140,9 @@ export const RemoteSessionPage: React.FC = () => {
     } else {
       socket.once('connect', joinAndRequest);
     }
-    socket.on('reconnect', joinAndRequest);
+    // 'connect' fires on initial connect AND every reconnect in socket.io v4
+    // 'reconnect' is a Manager-level event and does NOT fire on socket directly in v4
+    socket.on('connect', joinAndRequest);
 
     const handleFrame = (data: { sessionId: string; frame: string }) => {
       const sid = sessionIdRef.current;
@@ -165,7 +167,7 @@ export const RemoteSessionPage: React.FC = () => {
     return () => {
       clearInterval(pollTimer);
       socket.off('stream:frame', handleFrame);
-      socket.off('reconnect', joinAndRequest);
+      socket.off('connect', joinAndRequest);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);  // Run once on mount — sessionId/role managed via refs and store

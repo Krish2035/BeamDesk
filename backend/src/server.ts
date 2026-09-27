@@ -9,17 +9,14 @@ import { setupSignalingSocket } from './websocket/signaling.socket.js';
 const startServer = async () => {
   await connectDatabase();
 
-  const app = createApp();
-  const server = http.createServer(app);
+  // We need io before app so the debug endpoint can reference it.
+  // Create a dummy http server first, attach io, then create the express app with io reference.
+  const server = http.createServer();
 
   const io = new SocketIOServer(server, {
     cors: {
-      origin: (requestOrigin, callback) => {
-        if (!requestOrigin || /^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.\d+\.\d+\.\d+)(:\d+)?$/.test(requestOrigin) || requestOrigin === config.CLIENT_URL) {
-          callback(null, true);
-        } else {
-          callback(null, true);
-        }
+      origin: (_requestOrigin, callback) => {
+        callback(null, true); // Allow all origins (CORS handled by express)
       },
       methods: ['GET', 'POST'],
       credentials: true,
@@ -30,25 +27,13 @@ const startServer = async () => {
     pingInterval: 25000,
   });
 
+  // Now create express app with io reference (so debug endpoint works)
+  const app = createApp(io);
+
+  // Attach express app as the HTTP request handler
+  server.on('request', app);
+
   setupSignalingSocket(io);
-
-  // Debug endpoint: inspect live session room membership
-  // Usage: GET /api/debug/session/<sessionId>
-  app.get('/api/debug/session/:sessionId', (req, res) => {
-    const { sessionId } = req.params;
-    const roomKey = `session:${sessionId}`;
-    const room = io.sockets.adapter.rooms.get(roomKey);
-    const sockets = room ? Array.from(room) : [];
-    res.json({
-      sessionId,
-      roomKey,
-      socketCount: sockets.length,
-      sockets,
-      totalConnectedSockets: io.sockets.sockets.size,
-    });
-  });
-
-
 
   server.listen(config.PORT, () => {
     logger.info(`BeamDesk Backend Server listening on http://localhost:${config.PORT}`);

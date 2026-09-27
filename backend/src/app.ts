@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import { Server as SocketIOServer } from 'socket.io';
 import { config } from './config/index.js';
 import { authRoutes } from './routes/auth.routes.js';
 import { deviceRoutes } from './routes/device.routes.js';
@@ -10,7 +11,7 @@ import { adbRouter } from './routes/adb.routes.js';
 import { standardRateLimiter } from './middleware/rateLimiter.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 
-export const createApp = () => {
+export const createApp = (io?: SocketIOServer) => {
   const app = express();
 
   // Security & Headers
@@ -51,6 +52,27 @@ export const createApp = () => {
   app.use('/api/sessions', sessionRoutes);
   app.use('/api/webrtc', iceConfigRoutes);
   app.use('/api/adb', adbRouter);
+
+  // Debug: inspect live Socket.IO session room membership
+  // MUST be before the 404 handler so Express doesn't swallow it
+  app.get('/api/debug/session/:sessionId', (req, res) => {
+    const { sessionId } = req.params;
+    if (!io) {
+      res.json({ sessionId, error: 'Socket.IO not attached yet', socketCount: 0, sockets: [] });
+      return;
+    }
+    const roomKey = `session:${sessionId}`;
+    const room = io.sockets.adapter.rooms.get(roomKey);
+    const sockets = room ? Array.from(room) : [];
+    res.json({
+      sessionId,
+      roomKey,
+      socketCount: sockets.length,
+      sockets,
+      totalConnectedSockets: io.sockets.sockets.size,
+      timestamp: new Date().toISOString(),
+    });
+  });
 
   // 404 handler
   app.use((_req, res) => {
