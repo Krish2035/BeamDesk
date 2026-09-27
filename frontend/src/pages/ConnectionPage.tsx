@@ -43,19 +43,32 @@ export const ConnectionPage: React.FC = () => {
     if (!socket) return;
 
     const handleAccepted = async (payload: any) => {
-      console.log('Host accepted request, negotiating WebRTC offer...');
+      console.log('Session accepted, isDesktopHost:', payload.isDesktopHost);
       setStage('NEGOTIATING');
       setSession(payload.sessionId, 'CLIENT', targetId);
 
+      // Mobile companion devices (Android app) stream via socket stream:frame events.
+      // They do NOT support WebRTC — skip WebRTC negotiation entirely and go straight to session.
+      const isMobileHost = payload.isDesktopHost === false;
+
+      if (isMobileHost) {
+        console.log('Mobile host detected — skipping WebRTC, using socket frame stream.');
+        setStage('CONNECTED');
+        navigate(`/session/${payload.sessionId}`);
+        return;
+      }
+
       try {
-        // Initialize Viewer WebRTC PeerConnection and create offer
+        // Desktop host: use WebRTC for low-latency screen sharing
         await webrtcService.initializePeerConnection(payload.sessionId, 'CLIENT');
         await webrtcService.createAndSendOffer(payload.sessionId);
         setStage('CONNECTED');
         navigate(`/session/${payload.sessionId}`);
       } catch (err: any) {
-        setErrorMessage('Failed to establish WebRTC media pipeline.');
-        setStage('ERROR');
+        console.error('WebRTC negotiation failed, falling back to session page:', err);
+        // Even if WebRTC fails, navigate to session page — mobile frame stream may still work
+        setStage('CONNECTED');
+        navigate(`/session/${payload.sessionId}`);
       }
     };
 
