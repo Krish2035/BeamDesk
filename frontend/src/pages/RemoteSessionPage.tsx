@@ -64,6 +64,8 @@ export const RemoteSessionPage: React.FC = () => {
   const [adbConnected, setAdbConnected] = useState(false);
   const [useAdbMirror, setUseAdbMirror] = useState(false);
   const [mobileFrame, setMobileFrame] = useState<string | null>(null);
+  // Ref to track mobileFrame in poll timer without stale closures
+  const mobileFrameRef = useRef<string | null>(null);
 
   // Poll for connected physical Android device via ADB
   useEffect(() => {
@@ -101,6 +103,7 @@ export const RemoteSessionPage: React.FC = () => {
   }, []);
 
   // Socket room join & live mobile screen frame listener
+  // NOTE: mobileFrame intentionally excluded from deps to prevent handler re-registration on every frame
   useEffect(() => {
     if (!sessionId) return;
 
@@ -114,7 +117,13 @@ export const RemoteSessionPage: React.FC = () => {
 
     const joinAndRequest = () => {
       socket.emit('session:join', { sessionId });
+      // Burst-request frames aggressively on join to handle race condition where
+      // mobile has already sent frames before the laptop socket was in the session room
       socket.emit('stream:request_frame', { sessionId });
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 800);
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 1600);
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 2500);
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 4000);
     };
 
     if (socket.connected) {
@@ -126,6 +135,7 @@ export const RemoteSessionPage: React.FC = () => {
 
     const handleFrame = (data: { sessionId: string; frame: string }) => {
       if (data && data.sessionId === sessionId && data.frame) {
+        mobileFrameRef.current = data.frame;
         setMobileFrame(data.frame);
         setIsPortrait(true);
       }
@@ -133,19 +143,20 @@ export const RemoteSessionPage: React.FC = () => {
 
     socket.on('stream:frame', handleFrame);
 
-    // Periodic ping to host for frame if stream has not started yet
+    // Periodic ping to mobile host for frame — uses ref to avoid stale closure
     const pollTimer = setInterval(() => {
-      if (!remoteStream && !mobileFrame && socket.connected) {
+      if (!remoteStream && !mobileFrameRef.current && socket.connected) {
         socket.emit('stream:request_frame', { sessionId });
       }
-    }, 2500);
+    }, 2000);
 
     return () => {
       clearInterval(pollTimer);
       socket.off('stream:frame', handleFrame);
       socket.off('reconnect', joinAndRequest);
     };
-  }, [sessionId, role, remoteStream, mobileFrame]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId, role, remoteStream]);
 
   const formatTimer = (totalSec: number) => {
     const mins = Math.floor(totalSec / 60);

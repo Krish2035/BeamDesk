@@ -183,8 +183,7 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
                     .setPositiveButton("Accept & Connect", (dialog, which) -> {
                         SignalingClient.getInstance().acceptSession(sessionId);
                         if (ScreenCaptureService.getInstance() != null) {
-                            ScreenCaptureService.getInstance().setSessionId(sessionId);
-                            ScreenCaptureService.getInstance().sendCurrentFrameNow();
+                            ScreenCaptureService.getInstance().sendFrameBurst(sessionId);
                         }
                         Toast.makeText(this, "Connected! Streaming screen to laptop.", Toast.LENGTH_SHORT).show();
                         pendingSessionId = null;

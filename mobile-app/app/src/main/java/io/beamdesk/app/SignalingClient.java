@@ -213,11 +213,10 @@ public class SignalingClient {
             socket.emit("session:accept", payload);
             Log.i(TAG, "Session accepted: " + sessionId);
 
-            // Immediately attach sessionId to ScreenCaptureService and push frame
+            // Burst-send frames so the laptop receives one as soon as capture has a frame ready
             ScreenCaptureService service = ScreenCaptureService.getInstance();
             if (service != null) {
-                service.setSessionId(sessionId);
-                service.sendCurrentFrameNow();
+                service.sendFrameBurst(sessionId);
             }
         } catch (Exception e) {
             Log.e(TAG, "Error sending session:accept", e);

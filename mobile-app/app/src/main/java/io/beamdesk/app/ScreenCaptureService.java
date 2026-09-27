@@ -100,7 +100,7 @@ public class ScreenCaptureService extends Service {
                 Log.e(TAG, "Error in frame heartbeat", t);
             }
             if (backgroundHandler != null) {
-                backgroundHandler.postDelayed(this, 500); // 2 FPS idle keepalive for static screens
+                backgroundHandler.postDelayed(this, 300); // 3+ FPS idle keepalive for static screens
             }
         }
     };
@@ -122,6 +122,39 @@ public class ScreenCaptureService extends Service {
                 }
             });
         }
+    }
+
+    /**
+     * Called after a session is accepted. Attempts to send the current frame immediately,
+     * and retries every 300ms for up to 3 seconds to handle the race condition where
+     * no frame has been captured yet at the moment of session acceptance.
+     */
+    public void sendFrameBurst(String targetSessionId) {
+        if (targetSessionId != null) {
+            this.sessionId = targetSessionId;
+        }
+        if (backgroundHandler == null) return;
+        final int[] attempts = {0};
+        final int maxAttempts = 10;
+        Runnable burstRunnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String sid = sessionId != null ? sessionId : SignalingClient.getInstance().getCurrentSessionId();
+                    if (sid != null && latestBase64Frame != null) {
+                        SignalingClient.getInstance().sendFrame(sid, latestBase64Frame);
+                        Log.i(TAG, "Frame burst sent (attempt " + (attempts[0] + 1) + ")");
+                    }
+                } catch (Throwable t) {
+                    Log.e(TAG, "Error in frame burst", t);
+                }
+                attempts[0]++;
+                if (attempts[0] < maxAttempts && backgroundHandler != null) {
+                    backgroundHandler.postDelayed(this, 300);
+                }
+            }
+        };
+        backgroundHandler.post(burstRunnable);
     }
 
     private void startCapture(int resultCode, Intent data) {
