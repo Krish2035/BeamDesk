@@ -103,11 +103,16 @@ export const RemoteSessionPage: React.FC = () => {
   }, []);
 
   // Socket room join & live mobile screen frame listener
-  // NOTE: mobileFrame intentionally excluded from deps to prevent handler re-registration on every frame
+  // IMPORTANT: role and sessionId are intentionally kept out of deps to prevent
+  // the handler from tearing down & re-registering during the critical initial frame window.
+  const sessionIdRef = useRef<string | undefined>(sessionId);
+  useEffect(() => { sessionIdRef.current = sessionId; }, [sessionId]);
+
   useEffect(() => {
     if (!sessionId) return;
 
-    if (!role) {
+    // Ensure we always have a role set so the stream frame renders
+    if (!useSessionStore.getState().role) {
       useSessionStore.getState().setSession(sessionId, 'CLIENT', '');
     }
 
@@ -116,14 +121,18 @@ export const RemoteSessionPage: React.FC = () => {
     if (!socket) return;
 
     const joinAndRequest = () => {
-      socket.emit('session:join', { sessionId });
-      // Burst-request frames aggressively on join to handle race condition where
-      // mobile has already sent frames before the laptop socket was in the session room
-      socket.emit('stream:request_frame', { sessionId });
-      setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 800);
-      setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 1600);
-      setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 2500);
-      setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 4000);
+      const sid = sessionIdRef.current;
+      if (!sid) return;
+      console.log('[BeamDesk] Joining session room and requesting frames for:', sid);
+      socket.emit('session:join', { sessionId: sid });
+      // Burst-request frames to handle race condition where
+      // mobile sends frames before laptop socket is in the session room
+      socket.emit('stream:request_frame', { sessionId: sid });
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId: sid }), 800);
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId: sid }), 1800);
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId: sid }), 3000);
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId: sid }), 5000);
+      setTimeout(() => socket.emit('stream:request_frame', { sessionId: sid }), 8000);
     };
 
     if (socket.connected) {
@@ -134,7 +143,9 @@ export const RemoteSessionPage: React.FC = () => {
     socket.on('reconnect', joinAndRequest);
 
     const handleFrame = (data: { sessionId: string; frame: string }) => {
-      if (data && data.sessionId === sessionId && data.frame) {
+      const sid = sessionIdRef.current;
+      if (data && data.sessionId === sid && data.frame) {
+        console.log('[BeamDesk] stream:frame received for session:', sid);
         mobileFrameRef.current = data.frame;
         setMobileFrame(data.frame);
         setIsPortrait(true);
@@ -145,8 +156,9 @@ export const RemoteSessionPage: React.FC = () => {
 
     // Periodic ping to mobile host for frame — uses ref to avoid stale closure
     const pollTimer = setInterval(() => {
-      if (!remoteStream && !mobileFrameRef.current && socket.connected) {
-        socket.emit('stream:request_frame', { sessionId });
+      const sid = sessionIdRef.current;
+      if (!remoteStream && !mobileFrameRef.current && socket.connected && sid) {
+        socket.emit('stream:request_frame', { sessionId: sid });
       }
     }, 2000);
 
@@ -156,7 +168,8 @@ export const RemoteSessionPage: React.FC = () => {
       socket.off('reconnect', joinAndRequest);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionId, role, remoteStream]);
+  }, []);  // Run once on mount — sessionId/role managed via refs and store
+
 
   const formatTimer = (totalSec: number) => {
     const mins = Math.floor(totalSec / 60);

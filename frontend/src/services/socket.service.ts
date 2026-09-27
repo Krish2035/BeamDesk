@@ -58,13 +58,22 @@ class SocketService {
       useSessionStore.getState().setError(payload.reason || 'Session was rejected by the target user.');
     });
 
-    // Listen to session ended
+    // Listen to session ended — only reset if it's our current active session
     this.socket.on(SOCKET_EVENTS.SESSION_ENDED, (payload) => {
       console.log('Session ended:', payload);
-      useSessionStore.getState().setError(payload.reason || 'Session ended');
-      setTimeout(() => {
-        useSessionStore.getState().resetSession();
-      }, 1500);
+      const currentSessionId = useSessionStore.getState().sessionId;
+      // Guard: only tear down if this event is for the session we are currently in
+      if (!currentSessionId || currentSessionId === payload?.sessionId) {
+        useSessionStore.getState().setError(payload.reason || 'Session ended');
+        setTimeout(() => {
+          // Double-check: if user started a new session in 1.5s window, don't reset
+          const stillSameSession = useSessionStore.getState().sessionId === payload?.sessionId
+            || useSessionStore.getState().sessionId === null;
+          if (stillSameSession) {
+            useSessionStore.getState().resetSession();
+          }
+        }, 1500);
+      }
     });
 
     // Listen to permissions updated

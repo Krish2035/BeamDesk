@@ -278,7 +278,10 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
         const cached = sessionFrames.get(data.sessionId);
         if (cached) {
           socket.emit('stream:frame', { sessionId: data.sessionId, frame: cached });
+          logger.info(`Served cached frame for session ${data.sessionId} to socket ${socket.id}`);
         }
+        const roomSize = io.sockets.adapter.rooms.get(`session:${data.sessionId}`)?.size || 0;
+        logger.info(`stream:request_frame from ${socket.id} for session ${data.sessionId}, room size: ${roomSize}, cached: ${!!cached}`);
         socket.to(`session:${data.sessionId}`).emit('stream:request_frame', data);
       }
     });
@@ -287,9 +290,12 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
     socket.on('stream:frame', (data: { sessionId: string; frame: string }) => {
       if (data?.sessionId && data?.frame) {
         sessionFrames.set(data.sessionId, data.frame);
+        const roomSize = io.sockets.adapter.rooms.get(`session:${data.sessionId}`)?.size || 0;
+        logger.info(`stream:frame from ${socket.id} for session ${data.sessionId}, broadcasting to ${roomSize - 1} other socket(s)`);
         socket.to(`session:${data.sessionId}`).emit('stream:frame', data);
       }
     });
+
 
     // 6. WebRTC SDP Offer Relay
     socket.on(SOCKET_EVENTS.SIGNALING_OFFER, (payload: SdpSignalPayload) => {
