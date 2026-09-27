@@ -26,6 +26,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import io.beamdesk.app.R;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
