@@ -152,7 +152,6 @@ export const RemoteSessionPage: React.FC = () => {
           console.log('[BeamDesk] stream:frame received successfully (frame length: ' + data.frame.length + ')');
           mobileFrameRef.current = data.frame;
           setMobileFrame(data.frame);
-          setIsPortrait(true);
         }
       }
     };
@@ -809,11 +808,11 @@ export const RemoteSessionPage: React.FC = () => {
             </div>
           )
         ) : mobileFrame ? (
-          /* Role is CLIENT with live mobile companion screen */
+          /* Role is CLIENT with live remote screen */
           <div className="relative flex items-center justify-center w-full h-full p-2">
             <img
               src={mobileFrame}
-              alt="Live Android Companion Screen"
+              alt="Live Remote Screen"
               onClick={handleClick}
               onMouseDown={handleMouseDown}
               onDoubleClick={handleDoubleClick}
@@ -822,7 +821,15 @@ export const RemoteSessionPage: React.FC = () => {
               onTouchStart={handleTouchStart as any}
               onTouchMove={handleTouchMove as any}
               onTouchEnd={handleTouchEnd as any}
-              className={`transition-all select-none max-h-[85vh] aspect-[9/16] object-contain cursor-crosshair rounded-3xl shadow-2xl border-4 border-slate-800 bg-black ${
+              onLoad={(e) => {
+                const img = e.currentTarget;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setIsPortrait(img.naturalHeight > img.naturalWidth);
+                }
+              }}
+              className={`transition-all select-none max-h-[85vh] object-contain cursor-crosshair shadow-2xl border-4 border-slate-800 bg-black ${
+                isPortrait ? 'aspect-[9/16] rounded-3xl' : 'aspect-video rounded-2xl'
+              } ${
                 isZoomed ? 'min-w-[1920px] min-h-[1080px] object-none' : ''
               }`}
             />
@@ -907,7 +914,7 @@ export const RemoteSessionPage: React.FC = () => {
             <div className="space-y-1">
               <h3 className="text-base font-semibold text-slate-100">Connecting to Remote Screen...</h3>
               <p className="text-xs text-slate-400 max-w-sm">
-                Waiting for mobile screen frames. Make sure the BeamDesk app is open and screen sharing is active.
+                Waiting for remote screen stream. Make sure screen sharing permission was accepted on the host device.
               </p>
               {sessionId && (
                 <p className="text-[10px] text-slate-600 font-mono mt-1">Session: {sessionId.slice(0, 8)}...</p>

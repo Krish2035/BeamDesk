@@ -51,19 +51,25 @@ export const IncomingRequestModal: React.FC = () => {
       setIsCapturing(true);
       setError(null);
 
-      // 1. Capture screen/media FIRST directly from this click handler
-      // This preserves user gesture activation on mobile browsers
-      await webrtcService.startScreenCapture(modeToUse);
-
-      // 2. Initialize Host WebRTC connection
-      await webrtcService.initializePeerConnection(incomingRequest.sessionId, 'HOST');
-
+      // 1. Set session in store first so active sessionId is known
       setPermissions(permissions);
       setSession(incomingRequest.sessionId, 'HOST', incomingRequest.targetDeviceId);
-      const isDesktopHost = deviceType === 'desktop';
+
+      // 2. Capture screen/media directly from this user click gesture
+      const stream = await webrtcService.startScreenCapture(modeToUse);
+
+      // 3. Initialize Host WebRTC connection with STUN + TURN relays
+      await webrtcService.initializePeerConnection(incomingRequest.sessionId, 'HOST');
+
+      // 4. Start dual fail-safe frame streaming over WebSocket (guarantees delivery across 4G/CGNAT)
+      if (stream) {
+        webrtcService.startFrameStreaming(incomingRequest.sessionId, stream);
+      }
+
+      const isDesktopHost = deviceType === 'desktop' || deviceType === 'laptop';
       socketService.acceptSession(incomingRequest.sessionId, permissions, isDesktopHost);
 
-      // 4. Close modal and open session viewer
+      // 5. Close modal and open session viewer
       setIncomingRequest(null);
       navigate(`/session/${incomingRequest.sessionId}`);
     } catch (err: any) {

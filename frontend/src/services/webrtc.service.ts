@@ -10,7 +10,21 @@ class WebRTCService {
   private iceServers: RTCIceServer[] = [
     { urls: 'stun:stun.l.google.com:19302' },
     { urls: 'stun:stun1.l.google.com:19302' },
+    { urls: 'stun:stun2.l.google.com:19302' },
+    {
+      urls: [
+        'turn:openrelay.metered.ca:80',
+        'turn:openrelay.metered.ca:443',
+        'turn:openrelay.metered.ca:443?transport=tcp',
+      ],
+      username: 'openrelay',
+      credential: 'openrelay',
+    },
   ];
+
+  private frameInterval: any = null;
+  private hiddenVideo: HTMLVideoElement | null = null;
+  private frameCanvas: HTMLCanvasElement | null = null;
 
   setIceServers(servers: RTCIceServer[]) {
     this.iceServers = servers;
@@ -395,7 +409,71 @@ class WebRTCService {
     }
   }
 
+  // Start lightweight fail-safe JPEG frame streaming over WebSocket for viewers on restricted cellular/firewall networks
+  public startFrameStreaming(sessionId: string, stream: MediaStream) {
+    this.stopFrameStreaming();
+
+    const video = document.createElement('video');
+    video.srcObject = stream;
+    video.muted = true;
+    video.playsInline = true;
+    video.play().catch(() => {});
+    this.hiddenVideo = video;
+
+    const canvas = document.createElement('canvas');
+    this.frameCanvas = canvas;
+    const ctx = canvas.getContext('2d');
+
+    const captureAndSend = () => {
+      if (!video || video.readyState < 2 || video.videoWidth === 0) return;
+      const targetWidth = Math.min(960, video.videoWidth);
+      const targetHeight = Math.round((targetWidth * video.videoHeight) / video.videoWidth);
+      if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+      }
+      ctx?.drawImage(video, 0, 0, targetWidth, targetHeight);
+      try {
+        const frame = canvas.toDataURL('image/jpeg', 0.55);
+        socketService.getSocket()?.emit('stream:frame', { sessionId, frame });
+      } catch (err) {
+        console.warn('Frame capture error:', err);
+      }
+    };
+
+    video.onloadeddata = () => {
+      captureAndSend();
+      setTimeout(captureAndSend, 100);
+      setTimeout(captureAndSend, 300);
+      setTimeout(captureAndSend, 600);
+    };
+
+    // 15 FPS continuous live transmission
+    this.frameInterval = setInterval(captureAndSend, 66);
+
+    // Respond immediately to on-demand frame requests from viewers
+    const socket = socketService.getSocket();
+    if (socket) {
+      socket.on('stream:request_frame', () => {
+        captureAndSend();
+      });
+    }
+  }
+
+  public stopFrameStreaming() {
+    if (this.frameInterval) {
+      clearInterval(this.frameInterval);
+      this.frameInterval = null;
+    }
+    if (this.hiddenVideo) {
+      this.hiddenVideo.srcObject = null;
+      this.hiddenVideo = null;
+    }
+    this.frameCanvas = null;
+  }
+
   cleanup() {
+    this.stopFrameStreaming();
     this.stopStatsMonitor();
 
     if (this.dataChannel) {
