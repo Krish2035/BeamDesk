@@ -25,9 +25,30 @@ const startServer = async () => {
       credentials: true,
     },
     transports: ['websocket', 'polling'],
+    maxHttpBufferSize: 50 * 1024 * 1024, // 50MB — allow large JPEG frame payloads from mobile
+    pingTimeout: 60000,
+    pingInterval: 25000,
   });
 
   setupSignalingSocket(io);
+
+  // Debug endpoint: inspect live session room membership
+  // Usage: GET /api/debug/session/<sessionId>
+  app.get('/api/debug/session/:sessionId', (req, res) => {
+    const { sessionId } = req.params;
+    const roomKey = `session:${sessionId}`;
+    const room = io.sockets.adapter.rooms.get(roomKey);
+    const sockets = room ? Array.from(room) : [];
+    res.json({
+      sessionId,
+      roomKey,
+      socketCount: sockets.length,
+      sockets,
+      totalConnectedSockets: io.sockets.sockets.size,
+    });
+  });
+
+
 
   server.listen(config.PORT, () => {
     logger.info(`BeamDesk Backend Server listening on http://localhost:${config.PORT}`);

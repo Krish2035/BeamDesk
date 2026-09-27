@@ -902,26 +902,51 @@ export const RemoteSessionPage: React.FC = () => {
             <div className="space-y-1">
               <h3 className="text-base font-semibold text-slate-100">Connecting to Remote Screen...</h3>
               <p className="text-xs text-slate-400 max-w-sm">
-                Negotiating low-latency display stream. Ensure target device accepts connection.
+                Waiting for mobile screen frames. Make sure the BeamDesk app is open and screen sharing is active.
               </p>
+              {sessionId && (
+                <p className="text-[10px] text-slate-600 font-mono mt-1">Session: {sessionId.slice(0, 8)}...</p>
+              )}
             </div>
-            <div className="pt-2 flex items-center space-x-3">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
               <button
                 onClick={() => {
                   const socket = socketService.getSocket();
                   if (socket && sessionId) {
+                    console.log('[BeamDesk] Force rejoining session room:', sessionId);
                     socket.emit('session:join', { sessionId });
                     socket.emit('stream:request_frame', { sessionId });
+                    setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 500);
+                    setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 1200);
+                    setTimeout(() => socket.emit('stream:request_frame', { sessionId }), 2500);
                   }
                 }}
                 className="px-4 py-2 bg-brand-600 hover:bg-brand-500 active:scale-95 text-white rounded-xl text-xs font-semibold shadow-md shadow-brand-600/30 flex items-center space-x-1.5 transition-all"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
-                <span>Refresh Stream Request</span>
+                <span>Refresh Stream</span>
+              </button>
+              <button
+                onClick={async () => {
+                  if (!sessionId) return;
+                  try {
+                    const res = await fetch(`https://beamdesk-backend.onrender.com/api/debug/session/${sessionId}`);
+                    const data = await res.json();
+                    console.log('[BeamDesk] Session room debug:', data);
+                    alert(`Session room: ${data.socketCount} socket(s) connected\n${data.sockets.join('\n')}\n\nTotal backend sockets: ${data.totalConnectedSockets}\n\nIf socketCount < 2, the mobile is NOT in the room.`);
+                  } catch (e) {
+                    alert('Could not reach backend debug endpoint. Check network.');
+                  }
+                }}
+                className="px-4 py-2 bg-slate-700 hover:bg-slate-600 active:scale-95 text-slate-200 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-all"
+              >
+                <Activity className="w-3.5 h-3.5" />
+                <span>Diagnose Room</span>
               </button>
             </div>
           </div>
         )}
+
 
         {/* Reconnecting Banner */}
         {status === 'RECONNECTING' && (

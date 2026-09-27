@@ -63,6 +63,35 @@ public class SignalingClient {
             socket.on(Socket.EVENT_CONNECT, args -> {
                 Log.i(TAG, "Connected to BeamDesk Backend Socket: " + socket.id());
                 registerDevice();
+
+                // Auto-rejoin active session room on reconnect (handles Render backend restart)
+                if (currentSessionId != null) {
+                    Log.i(TAG, "Reconnected — rejoining session room: " + currentSessionId);
+                    try {
+                        JSONObject joinPayload = new JSONObject();
+                        joinPayload.put("sessionId", currentSessionId);
+                        socket.emit("session:join", joinPayload);
+
+                        // Re-accept the session so backend knows mobile is still host
+                        JSONObject acceptPayload = new JSONObject();
+                        acceptPayload.put("sessionId", currentSessionId);
+                        acceptPayload.put("isDesktopHost", false);
+                        JSONObject perms = new JSONObject();
+                        perms.put("allowMouse", true);
+                        perms.put("allowKeyboard", true);
+                        perms.put("allowAudio", true);
+                        acceptPayload.put("approvedPermissions", perms);
+                        socket.emit("session:accept", acceptPayload);
+
+                        // Send a burst of frames after reconnect
+                        ScreenCaptureService service = ScreenCaptureService.getInstance();
+                        if (service != null) {
+                            service.sendFrameBurst(currentSessionId);
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error rejoining session on reconnect", e);
+                    }
+                }
             });
 
             socket.on(Socket.EVENT_DISCONNECT, args -> {
