@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="brand_primary">#0284c7</color>
+    <color name="primary_blue">#0284c7</color>
     <color name="brand_dark">#0f172a</color>
     <color name="brand_accent">#06b6d4</color>
     <color name="status_green">#10b981</color>

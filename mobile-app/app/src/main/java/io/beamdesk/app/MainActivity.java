@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements SignalingClient.S
             btnStartCast.setBackgroundColor(getResources().getColor(R.color.status_green));
         } else {
             btnStartCast.setText("Allow Remote Screen Sharing");
-            btnStartCast.setBackgroundColor(getResources().getColor(R.color.primary_blue));
+            btnStartCast.setBackgroundColor(getResources().getColor(R.color.brand_primary));
         }
     }
 
