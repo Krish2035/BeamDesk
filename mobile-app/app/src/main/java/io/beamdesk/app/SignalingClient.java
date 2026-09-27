@@ -245,6 +245,7 @@ public class SignalingClient {
             // Burst-send frames so the laptop receives one as soon as capture has a frame ready
             ScreenCaptureService service = ScreenCaptureService.getInstance();
             if (service != null) {
+                service.setSessionId(sessionId);
                 service.sendFrameBurst(sessionId);
             }
         } catch (Exception e) {

@@ -184,19 +184,9 @@ public class ScreenCaptureService extends Service {
                 final int rawHeight = (int) (540.0 * screenHeight / screenWidth);
                 final int captureHeight = (rawHeight / 2) * 2; // ensure even number
 
-                imageReader = ImageReader.newInstance(captureWidth, captureHeight, PixelFormat.RGBA_8888, 2);
+                imageReader = ImageReader.newInstance(captureWidth, captureHeight, PixelFormat.RGBA_8888, 3);
 
-                virtualDisplay = mediaProjection.createVirtualDisplay(
-                        "BeamDeskDisplay",
-                        captureWidth,
-                        captureHeight,
-                        density,
-                        DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
-                        imageReader.getSurface(),
-                        null,
-                        backgroundHandler
-                );
-
+                // Register listener BEFORE createVirtualDisplay so initial frame is never dropped
                 imageReader.setOnImageAvailableListener(reader -> {
                     long now = System.currentTimeMillis();
                     // Max 22 FPS to guarantee ultra low-latency without congestion
@@ -219,16 +209,30 @@ public class ScreenCaptureService extends Service {
                         if (planes == null || planes.length == 0) return;
 
                         ByteBuffer buffer = planes[0].getBuffer();
+                        buffer.rewind(); // Required to prevent buffer position mismatches
+
                         int pixelStride = planes[0].getPixelStride();
                         int rowStride = planes[0].getRowStride();
                         int rowPadding = rowStride - pixelStride * captureWidth;
+                        int paddedWidth = captureWidth + (rowPadding / pixelStride);
 
                         bitmap = Bitmap.createBitmap(
-                                captureWidth + rowPadding / pixelStride,
+                                paddedWidth,
                                 captureHeight,
                                 Bitmap.Config.ARGB_8888
                         );
-                        bitmap.copyPixelsFromBuffer(buffer);
+
+                        int requiredSize = bitmap.getByteCount();
+                        if (buffer.remaining() >= requiredSize) {
+                            bitmap.copyPixelsFromBuffer(buffer);
+                        } else {
+                            // On some hardware, the final row excludes padding bytes.
+                            // Buffer Underflow Exception is prevented by filling an allocated buffer.
+                            ByteBuffer fullBuffer = ByteBuffer.allocate(requiredSize);
+                            fullBuffer.put(buffer);
+                            fullBuffer.rewind();
+                            bitmap.copyPixelsFromBuffer(fullBuffer);
+                        }
 
                         cleanBitmap = (rowPadding == 0)
                                 ? bitmap
@@ -262,8 +266,25 @@ public class ScreenCaptureService extends Service {
                     }
                 }, backgroundHandler);
 
+                virtualDisplay = mediaProjection.createVirtualDisplay(
+                        "BeamDeskDisplay",
+                        captureWidth,
+                        captureHeight,
+                        density,
+                        DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                        imageReader.getSurface(),
+                        null,
+                        backgroundHandler
+                );
+
                 // Start idle keepalive sender for static screens
                 backgroundHandler.postDelayed(frameHeartbeatRunnable, 500);
+
+                // Trigger immediate burst transmission to any waiting session viewer
+                String initialSid = sessionId != null ? sessionId : SignalingClient.getInstance().getCurrentSessionId();
+                if (initialSid != null) {
+                    sendFrameBurst(initialSid);
+                }
             }
         }
     }

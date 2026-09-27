@@ -144,13 +144,16 @@ export const RemoteSessionPage: React.FC = () => {
     // 'reconnect' is a Manager-level event and does NOT fire on socket directly in v4
     socket.on('connect', joinAndRequest);
 
-    const handleFrame = (data: { sessionId: string; frame: string }) => {
+    const handleFrame = (data: { sessionId?: string; frame: string }) => {
       const sid = sessionIdRef.current;
-      if (data && data.sessionId === sid && data.frame) {
-        console.log('[BeamDesk] stream:frame received for session:', sid);
-        mobileFrameRef.current = data.frame;
-        setMobileFrame(data.frame);
-        setIsPortrait(true);
+      if (data && data.frame) {
+        const matchesSession = !data.sessionId || !sid || data.sessionId.toLowerCase() === sid.toLowerCase();
+        if (matchesSession) {
+          console.log('[BeamDesk] stream:frame received successfully (frame length: ' + data.frame.length + ')');
+          mobileFrameRef.current = data.frame;
+          setMobileFrame(data.frame);
+          setIsPortrait(true);
+        }
       }
     };
 

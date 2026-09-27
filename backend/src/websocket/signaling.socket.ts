@@ -291,8 +291,8 @@ export const setupSignalingSocket = (io: SocketIOServer) => {
       if (data?.sessionId && data?.frame) {
         sessionFrames.set(data.sessionId, data.frame);
         const roomSize = io.sockets.adapter.rooms.get(`session:${data.sessionId}`)?.size || 0;
-        logger.info(`stream:frame from ${socket.id} for session ${data.sessionId}, broadcasting to ${roomSize - 1} other socket(s)`);
-        socket.to(`session:${data.sessionId}`).emit('stream:frame', data);
+        logger.info(`stream:frame from ${socket.id} for session ${data.sessionId}, broadcasting to room size: ${roomSize}`);
+        io.to(`session:${data.sessionId}`).emit('stream:frame', data);
       }
     });
 
